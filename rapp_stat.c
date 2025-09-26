@@ -6,4 +6,5 @@
 /*DESCRIPTION:                     Rapport et statistiques des entreprises*/    
 /*------------------------------------------------------------------------*/  
 
-
+#include <stdio.h>
+#include "rapp_stat.h"
