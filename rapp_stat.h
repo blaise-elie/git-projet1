@@ -1,11 +1,9 @@
 /*----------------------------------------------------------------------------*/
-
-/*FICHIER:                          rapp_stat.h                               */
-/*AUTEUR:                           Blaise Elie                               */   
-/*DATE DE CREATIION:                26/09/2025                               `*/
-/*DATE DE MODIFICATION:             26/09/2025                                */
-/*DESCRIPTION:                      Fichier en tete que contient les prototypes
-                                    des fonctions  rapports et statistiques   */   
+/* FICHIER:                          rapp_stat.h                              */
+/* AUTEUR:                           Blaise Elie                              */   
+/* DATE DE CREATION:                 26/09/2025                               */
+/* DATE DE MODIFICATION:             27/09/2025                               */
+/* DESCRIPTION:     Fichier d'en-tête pour les rapports et statistiques      */    
 
 /*-------------------------------- -------------------------------------------*/
 
@@ -13,6 +11,26 @@
 #define RAPP_STAT_H
 #include <stdio.h>
 #include <time.h>
+
+// Structure pour les ventes de produits
+typedef struct {
+    char id_usine[10];
+    char nom_usine[50];
+    char id_produit[10];
+    char nom_produit[50];
+    int quantite_vendue;
+    float prix_unitaire;
+    struct tm date_vente;
+} VenteProduit;
+
+// Structure pour les produits en stock par usine
+typedef struct {
+    char id_usine[10];
+    char nom_usine[50];
+    char id_produit[10];
+    char nom_produit[50];
+    int quantite_stock;
+} ProduitEnStock;
 
 //structure pour stocker une periode de date
 typedef struct
@@ -24,17 +42,15 @@ typedef struct
 
 
 
-//fonction pour les listes des produits disponibles
+// Fonction pour lister les produits disponibles par usine et période
+void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode);
 
-void list_produits_dispo(void);
+// Fonction pour lister les produits fabriqués dans une période donnée
+void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode);
 
-//fonction pour les listes de produits fabriquers
-
-void list_prod_fab(Periode periode);
-
-//fonction pour les chiffre d'affaire
-
-void chiffre_affaire(Periode periode);
+// Fonction pour calculer et afficher le chiffre d'affaire par période
+// Retourne le chiffre d'affaire total sur la période
+float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode);
 
 
 
