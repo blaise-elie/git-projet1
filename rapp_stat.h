@@ -43,17 +43,18 @@ typedef struct
 
 
 // Fonction pour lister les produits disponibles par usine et période
-void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode);
+void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename);
 
 // Fonction pour lister les produits fabriqués dans une période donnée
-void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode);
+void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename);
 
 // Fonction pour calculer et afficher le chiffre d'affaire par période
 // Retourne le chiffre d'affaire total sur la période
-float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode);
+float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,const char* filename);
 
 
-
+//commentaire impotantra  j'ai cree ces structures pour que je puisse voir si mes fonctions marchent bien
+//je les ai mis dans le fichier d'en-tete pour qu'elles soient accessibles dans les deux fichiers .c mais pour le moment je ne les encore pas essayer
 
 
 
