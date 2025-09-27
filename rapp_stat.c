@@ -32,7 +32,15 @@ static ProduitEnStock produits_test[] = {
 };
 
 //fonction pour les listes de produits disponibles par usine
-void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode) {
+void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename)
+{  FILE *f=fopen(filename,"w");
+
+    if (f == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
+        return;
+    }
+
+
     printf("Produits disponibles par usine :\n");
     for (int i = 0; i < nb_produits; i++) {
         printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
@@ -42,7 +50,13 @@ void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *pe
     }
 }
 //fonction pour les produits fabriquers
-void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode) {
+void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename) 
+{  FILE *f=fopen(filename,"w");
+    if (f == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
+        return;
+    }
+
     printf("Produits fabriqués dans la période donnée :\n");
     for (int i = 0; i < nb_produits; i++) {
         printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
@@ -52,7 +66,14 @@ void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode)
     }
 }
 //focntions pour le chiffre d'affaire
-float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode) {
+float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,const char* filename)
+{ FILE *f=fopen(filename,"w");//ouverture du fichier en mode écriture
+    if (f == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
+        return -1.0; // Indiquer une erreur
+    }
+
+
     float total = 0.0;
     for (int i = 0; i < nb_ventes; i++) {
         total += ventes[i].quantite_vendue * ventes[i].prix_unitaire;
