@@ -74,6 +74,21 @@ void afficher_menu_principale()
     printf("\nVotre choix : ");
 }
 
+/*----------------------------------------------------------------------*/
+/* FONCTION:              ajout departement                            */
+/* DESCRIPTION:           Ajoute un nouveau département                  */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                        */
+/* AUTEUR:                Blaise Elie                                   */
+/* DATE DE CREATION:      25/09/2025                                    */
+/* DATE DE MODIFICATION:  04/10/2025                                    */
+/*----------------------------------------------------------------------*/
+void ajouter_departement()
+{
+    printf("Fonction ajouter_departement appelée.\n");
+    // Code pour ajouter un département ici code de Derival
+}
+
 
 /*----------------------------------------------------------------------*/
 /* FONCTION:              afficher menu parametres                             */
@@ -99,7 +114,7 @@ void menu_parametres() {
 
         switch (sous_choix) {
             case 1:
-                //ajouter_departement();
+                ajouter_departement();
                 break;
             case 2:
                 printf("Entrez l'ID du département à gérer : ");
