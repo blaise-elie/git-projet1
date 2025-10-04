@@ -7,13 +7,13 @@
 /*-----------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------*/
-/* Definition de la fonction ajouter un departement*/
-/*DESCRIPTION:            Cette fonction permet d'ajouter un departement*/
-/*PARAMETRES :            Pas de parametre                              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                      */
-/*AUTEUR:                 Blaise Elie                                   */
-/*DATE DE CREATION:       25/09/2025                                    */  
-/*DATE DE MODIFICATION:   03/10/2025                                    */
+/* FONCTION:              ajouter_departement                           */
+/* DESCRIPTION:           Ajoute un nouveau département au système     */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
 /*----------------------------------------------------------------------*/
 #include<stdio.h>
 #include<stdlib.h>
@@ -25,13 +25,13 @@ void ajouter_departement()
 }
 
 /*----------------------------------------------------------------------*/
-/* Definition de la fonction pour modifier  un departement*/
-/*DESCRIPTION:            Cette fonction permet de modifier un departement*/
-/*PARAMETRES :            Pas de parametre                              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                      */
-/*AUTEUR:                 Blaise Elie                                   */
-/*DATE DE CREATION:       25/09/2025                                    */  
-/*DATE DE MODIFICATION:   03/10/2025                                    */
+/* FONCTION:              modifier_departement                          */
+/* DESCRIPTION:           Modifie les informations d'un département    */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
 /*----------------------------------------------------------------------*/
 
 void modifier_departement()
@@ -42,15 +42,15 @@ void modifier_departement()
 
 }
 
-/*----------------------------------------------------------------------- */
-/* Definition de la fonction pour lister  les departements*/
-/*DESCRIPTION:            Cette fonction permet de lister les departements*/
-/*PARAMETRES :            Pas de parametre                                */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                         */
-/*AUTEUR:                 Blaise Elie                                     */
-/*DATE DE CREATION:       25/09/2025                                      */  
-/*DATE DE MODIFICATION:   03/10/2025                                      */
-/*------------------------------------------------------------------------ */
+/*----------------------------------------------------------------------*/
+/* FONCTION:              lister_departements                           */
+/* DESCRIPTION:           Affiche la liste de tous les départements     */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
+/*----------------------------------------------------------------------*/
 
 void lister_departements()
 {
@@ -59,50 +59,57 @@ void lister_departements()
 }
 
 /*----------------------------------------------------------------------*/
-/* Definition de la fonction ajouter une commune*/
-/*DESCRIPTION:            Cette fonction permet d'ajouter une commune   */
-/*PARAMETRES :            Pas de parametre                              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                       */
-/*AUTEUR:                 Blaise Elie                                   */
-/*DATE DE CREATION:       25/09/2025                                    */  
-/*DATE DE MODIFICATION:   03/10/2025                                    */
+/* FONCTION:              ajouter_commune                               */
+/* DESCRIPTION:           Ajoute une nouvelle commune à un département  */
+/* PARAMETRES:                                                          */
+/*     id_departement:    Identifiant du département (chaîne)          */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
 /*----------------------------------------------------------------------*/
 
-void ajouter_commune()
+void ajouter_commune(const char* id_departement)
 {
-    printf("Vous avez choisi d'ajouter une commune");
-    //Logique pour ajouter une commune
+    printf("\n=== AJOUT D'UNE COMMUNE AU DÉPARTEMENT %s ===\n", id_departement);
+    // TODO: Ajouter ici la logique pour saisir les informations de la commune
+    // La commune sera automatiquement liée au département spécifié
 }
 
 /*----------------------------------------------------------------------*/
-/* Definition de la fonction pour modifier une commune*/
-/*DESCRIPTION:            Cette fonction permet de modifier une commune */
-/*PARAMETRES :            Pas de parametre                              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                       */
-/*AUTEUR:                 Blaise Elie                                   */
-/*DATE DE CREATION:       25/09/2025                                    */  
-/*DATE DE MODIFICATION:   03/10/2025                                    */
+/* FONCTION:              modifier_commune                              */
+/* DESCRIPTION:           Modifie une commune existante d'un département*/
+/* PARAMETRES:                                                          */
+/*     id_departement:    Identifiant du département (chaîne)          */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
 /*----------------------------------------------------------------------*/
-void modifier_commune()
-{
-  printf("Vous avez choisi de modifier une commune");
-  //logique pour modifier une commune
 
+void modifier_commune(const char* id_departement)
+{
+    printf("\n=== MODIFICATION D'UNE COMMUNE DU DÉPARTEMENT %s ===\n", id_departement);
+    // TODO: Ajouter ici la logique pour sélectionner et modifier une commune
+    // Seules les communes du département spécifié seront affichées
 }
 
 /*----------------------------------------------------------------------*/
-/* Definition de la fonction pour lister les commune*/
-/*DESCRIPTION:            Cette fonction permet de lister les commune   */
-/*PARAMETRES :            Pas de parametre                              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                       */
-/*AUTEUR:                 Blaise Elie                                   */
-/*DATE DE CREATION:       25/09/2025                                    */  
-/*DATE DE MODIFICATION:   03/10/2025                                    */
+/* FONCTION:              lister_commune                               */
+/* DESCRIPTION:           Liste toutes les communes d'un département    */
+/* PARAMETRES:                                                          */
+/*     id_departement:    Identifiant du département (chaîne)          */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  03/10/2025                                   */
 /*----------------------------------------------------------------------*/
-void lister_commune()
+
+void lister_commune(const char* id_departement)
 {
-    printf("Vous avez choisi de lister les communes");
-    //Logique pour lister les communes
+    printf("\n=== LISTE DES COMMUNES DU DÉPARTEMENT %s ===\n", id_departement);
+    // TODO: Ajouter ici la logique pour lister toutes les communes
+    // du département spécifié
 }
 
 /*----------------------------------------------------------------------*/
@@ -131,58 +138,78 @@ void afficher_menu_parametres() {
 /*    Definition de la fonction pour gerer le menu des parametres        */
 /*DESCRIPTION:            Cette fonction permet de gere le menu des 
                           parametres                                    */
-/*PARAMETRES :            Pas de parametre                              */
+/*PARAMETRES :            ID du departement                              */
 /*VALEUR DE RETOUR:       Pas de valeur de retour                       */
 /*AUTEUR:                 Blaise Elie                                   */
 /*DATE DE CREATION:       25/09/2025                                    */  
 /*DATE DE MODIFICATION:   03/10/2025                                    */
 /*----------------------------------------------------------------------*/
 
-void menu_parametres()
-{
-     int sous_choix = -1;
-    while (sous_choix !=0)
-    {
-        afficher_menu_parametres();
-        scanf("%d",&sous_choix);
+void gerer_departement(const char* id_departement) {
+    int choix = -1;
+    while (choix != 0) {
+        printf("\n=== GESTION DU DÉPARTEMENT (ID: %s) ===\n", id_departement);
+        printf("1. Modifier les informations du département\n");
+        printf("2. Ajouter une commune\n");
+        printf("3. Modifier une commune\n");
+        printf("4. Lister les communes\n");
+        printf("0. Retour à la liste des départements\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
 
-        switch (sous_choix)
-        {
+        switch (choix) {
+            case 1:
+                modifier_departement();
+                break;
+            case 2:
+                ajouter_commune(id_departement);
+                break;
+            case 3:
+                modifier_commune(id_departement);
+                break;
+            case 4:
+                lister_commune(id_departement);
+                break;
+            case 0:
+                printf("Retour au menu des départements...\n");
+                break;
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+        }
+    }
+}
+
+void menu_parametres() {
+    int sous_choix = -1;
+    char id_departement[10];
+    
+    while (sous_choix != 0) {
+        printf("\n=== GESTION DES DÉPARTEMENTS ===\n");
+        printf("1. Ajouter un nouveau département\n");
+        printf("2. Sélectionner un département à gérer\n");
+        printf("3. Lister tous les départements\n");
+        printf("0. Retour au menu principal\n");
+        printf("Votre choix : ");
+        scanf("%d", &sous_choix);
+
+        switch (sous_choix) {
             case 1:
                 ajouter_departement();
-            break;
-            
+                break;
             case 2:
-                modifier_departement();
-            break;
-
+                printf("Entrez l'ID du département à gérer : ");
+                scanf("%s", id_departement);
+                gerer_departement(id_departement);
+                break;
             case 3:
                 lister_departements();
-            break;
-
-            case 4:
-                ajouter_commune();
-            break;
-
-            case 5:
-                modifier_commune();
-            break;
-
-            case 6:
-                lister_commune();
-            break;
-
+                break;
             case 0:
-                printf("Retour au menu principal.....");
-            break;
-
+                printf("Retour au menu principal...\n");
+                break;
             default:
-                printf("Choix invalide veuillez reessayer");
-
-
+                printf("Choix invalide, veuillez réessayer.\n");
         }
-
-
     }
 
 
