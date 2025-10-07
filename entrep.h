@@ -70,7 +70,8 @@ int mettre_a_jour_stock(int id_prod, int qte_vendue);
 int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
 void generer_date_courante(char* date_str);
 
-/*========================================================================*/
+/*===========
+=============================================================*/
 /*                    PROTOTYPES - MENUS                                  */
 /*========================================================================*/
 
@@ -80,6 +81,20 @@ void menu_parametres(void);
 void menu_production(void);
 void menu_ventes(void);
 void menu_rapports(void);
+
+//Structures pour les départements et communes
+typedef struct
+{
+  int id_departement;
+    char nom_departement[50];
+    char desc_departement[200];
+} Departement;
+
+// Prototype des fonctions pour les départements
+void inserer_departement(id_departement);
+int ecrire_departement(const char *nom_fichier, Departement *d);
+int lire_departement(const char *nom_fichier, int id_recherche, Departement *resultat);
+void modifier_departement(int ID);
 
 
 
