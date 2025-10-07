@@ -84,12 +84,12 @@ void afficher_menu_principale()
 /* DATE DE CREATION:      25/09/2025                                    */
 /* DATE DE MODIFICATION:  04/10/2025                                    */
 /*----------------------------------------------------------------------*/
-void ajouter_departement()
-{
-    printf("Fonction ajouter_departement appelée.\n");
-    // Code pour ajouter un département ici code de Derival
+// void ajouter_departement()
+// {
+//     printf("Fonction ajouter_departement appelée.\n");
+//     // Code pour ajouter un département ici code de Derival
 
-}
+// }
 
 
 /*----------------------------------------------------------------------*/
@@ -103,7 +103,7 @@ void ajouter_departement()
 /*----------------------------------------------------------------------*/
 void menu_parametres() {
     int sous_choix = -1;
-    char id_departement[10];
+    // char id_departement[10];
     
     while (sous_choix != 0) {
         printf("\n=== GESTION DES DÉPARTEMENTS ===\n");
@@ -115,15 +115,14 @@ void menu_parametres() {
 
         
         scanf("%d", &sous_choix);
-
+  
         switch (sous_choix) {
             case 1:
-                ajouter_departement();
+                void inserer_departement(int id_departement);
                 break;
             case 2:
-                printf("Entrez l'ID du département à gérer : ");
-                scanf("%s", id_departement);
-                //gerer_departement(id_departement);
+                void modifier_departement(int ID);
+            
                 break;
             case 3:
                // lister_departements();
