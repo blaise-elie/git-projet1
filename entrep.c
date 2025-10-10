@@ -22,11 +22,6 @@
 #include<string.h>
 #include "entrep.h"
 
-typedef struct {
-    int jour;
-    int mois;
-    int annee;
-} Date;
 void afficher_banniere() {
     
     printf("********************************************************************************\n");
@@ -118,10 +113,10 @@ void menu_parametres() {
   
         switch (sous_choix) {
             case 1:
-                void inserer_departement(int id_departement);
+                 inserer_departement(1);
                 break;
             case 2:
-                void modifier_departement(int ID);
+                 modifier_departement(2);
             
                 break;
             case 3:
