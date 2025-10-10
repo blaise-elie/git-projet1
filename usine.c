@@ -14,14 +14,13 @@
 
 
 //fonction pour inserer une usine
-void insererUsine(int ID_commune) 
+void ins_usine(int ID_commune) 
 {
     Usine nouvelleUsine;
     char texte[50]; // pour recevoir le texte à saisir
 
-    //le champ nouvelleUsine.Id_usine n'est pas definitif. l'iD de l'usine sera incrémenté(via un pointeur) automatiquement dans cette fonction ou dans la fonction appelante(on verra ca plus tard) 
-    nouvelleUsine.Id_usine= 1;
-    nouvelleUsine.Id_com= ID_commune;
+    nouvelleUsine.Id_usine= obtenir_dernier_id_usine("usine.dat") + 1;
+    //nouvelleUsine.Id_com= ID_commune;
 
     // Vider le buffer avant de lire une chaîne de caractères
     int c;
@@ -49,6 +48,7 @@ void insererUsine(int ID_commune)
     {
         printf("Nom de l'usine : %s\n", nouvelleUsine.Usi_nom);
         printf("Description de l'usine : %s\n", nouvelleUsine.Usin_desc);
+        printf("ID de l'usine : %d\n", nouvelleUsine.Id_usine);//afficher l'ID de l'usine
     } 
     else 
     {
@@ -147,3 +147,27 @@ void mod_usine(int ID)
     }
 }
 
+/*-------------------------------------------------------------------------------------*/
+/* FONCTION:              obtenir_dernier_id_usine                                     */
+/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
+/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
+/*AUTEUR:                Blaise Elie                                                   */
+/*DATE DE CREATION:      10/10/2025                                                    */
+/*DATE DE MODIFICATION:  10/10/2025                                                    */
+int obtenir_dernier_id_usine(const char *nom_fichier)
+{    
+    int max_id = 0;
+    Usine usine;
+    FILE *f = fopen(nom_fichier, "rb");
+    while (fread(&usine, sizeof(Usine), 1, f) == 1)
+    {
+        if (usine.Id_usine > max_id)
+        {
+            max_id = usine.Id_usine;
+        }
+    }
+    fclose(f);
+    return max_id;
+
+
+}
