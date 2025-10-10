@@ -11,6 +11,13 @@
 #ifndef ENTREP_H
 #define ENTREP_H
 
+//structure pour la date
+typedef struct {
+    int jour;
+    int mois;
+    int annee;
+} Date;
+
 //structure usine
 typedef struct{
     int Id_usine;
@@ -39,7 +46,7 @@ typedef struct{
 }Hist_production;
 
 //Prototypes des fonctions
-void insererUsine(int ID_commune);
+void ins_usine(int ID_commune);
 int ecrire_usine(const char *nom_fichier, Usine *u);
 int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat);
 void mod_usine(int ID);
@@ -85,17 +92,37 @@ void menu_rapports(void);
 //Structures pour les départements et communes
 typedef struct
 {
-  int id_departement;
+    int id_departement;
     char nom_departement[50];
     char desc_departement[200];
 } Departement;
 
 // Prototype des fonctions pour les départements
-void inserer_departement(id_departement);
+void ins_dept();
 int ecrire_departement(const char *nom_fichier, Departement *d);
 int lire_departement(const char *nom_fichier, int id_recherche, Departement *resultat);
-void modifier_departement(int ID);
+void mod_dept(int ID);
 
+//prototype des fonctions pour gerer les ID
+/*-------------------------------------------------------------------------------------*/
+/* FONCTION:              obtenir_dernier_id_dept                                      */
+/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
+/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
+/*AUTEUR:                Blaise Elie                                                   */
+/*DATE DE CREATION:      10/10/2025                                                    */
+/*DATE DE MODIFICATION:  10/10/2025                                                    */
 
+int obtenir_dernier_id_dept(const char *nom_fichier);
+
+//prototype des fonctions pour gerer les ID
+/*-------------------------------------------------------------------------------------*/
+/* FONCTION:              obtenir_dernier_id_usine                                     */
+/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
+/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
+/*AUTEUR:                Blaise Elie                                                   */
+/*DATE DE CREATION:      10/10/2025                                                    */
+/*DATE DE MODIFICATION:  10/10/2025                                                    */
+
+int obtenir_dernier_id_usine(const char *nom_fichier);
 
 #endif // ENTREP_H
