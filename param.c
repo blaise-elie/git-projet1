@@ -5,13 +5,40 @@
 #include "entrep.h"
 #include <string.h>
 
-void inserer_departement(id_departement)
+
+//corps fonction pour obtenir le dernier ID de departement
+/*-------------------------------------------------------------------------------------*/
+/* FONCTION:              obtenir_dernier_id_dept                                      */
+/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
+/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
+/*AUTEUR:                Blaise Elie                                                   */
+/*DATE DE CREATION:      10/10/2025                                                    */
+/*DATE DE MODIFICATION:  10/10/2025                                                    */
+int obtenir_dernier_id_dept(const char *nom_fichier)
+{    
+    int max_id = 0;
+    Departement dept;
+    FILE *f = fopen(nom_fichier, "rb");
+    while (fread(&dept, sizeof(Departement), 1, f) == 1)
+    {
+        if (dept.id_departement > max_id)
+        {
+            max_id = dept.id_departement;
+        }
+    }
+    fclose(f);
+    return max_id;
+
+
+}
+
+
+void ins_dept()
 {
     Departement nouveauDepartement;
+
     char texte[50]; // pour recevoir le texte à saisir
-    //le champ nouvelleUsine.Id_usine n'est pas definitif. l'iD de l'usine sera incrémenté(via un pointeur) automatiquement dans cette fonction ou dans la fonction appelante(on verra ca plus tard)
-    nouveauDepartement.id_departement= 1;
-    nouveauDepartement.id_departement= id_departement;
+    nouveauDepartement.id_departement= obtenir_dernier_id_dept("departement.dat") + 1;//l'ID de departement sera incrémenté automatiquement
 
     //Vider le buffer avant de lire une chaîne de caractères
     int c;
@@ -37,6 +64,7 @@ void inserer_departement(id_departement)
     {
         printf("Nom du département : %s\n", nouveauDepartement.nom_departement);
         printf("Description du département : %s\n", nouveauDepartement.desc_departement);
+        printf("ID du département : %d\n", nouveauDepartement.id_departement);
     }
     else
     {
@@ -80,7 +108,7 @@ int lire_departement(const char *nom_fichier, int id_recherche, Departement *res
     return 0; // departement non trouvée
 }
 //fonction pour modifier les infos d'un departement
-void_modifier_departement(int ID)
+void mod_dept(int ID)
 {
     Departement modDepartement;
     char texte[200]; // pour recevoir le texte à saisir
