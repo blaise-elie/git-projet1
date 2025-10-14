@@ -108,9 +108,11 @@ int lire_departement(const char *nom_fichier, int id_recherche, Departement *res
     return 0; // departement non trouvée
 }
 //fonction pour modifier les infos d'un departement
-void mod_dept(int ID)
+//on a pas besoin d'ajouter un parametre iD car l'ID incrémente automatiquement
+void mod_dept()
 {
-    Departement modDepartement;
+    int ID;
+   Departement modDepartement;
     char texte[200]; // pour recevoir le texte à saisir
     int choix;
 
@@ -129,11 +131,13 @@ void mod_dept(int ID)
             printf("1. Nom\n");
             printf("2. Description\n");
             printf("3. Quitter\n");
+            printf(" Veuillez faire Votre choix : ");
             scanf("%d", &choix);
             getchar(); // absorber le \n
 
             switch(choix) {
                 case 1:
+                    printf("Vous allez modifier le nom du département (ID: %d)\n", modDepartement.id_departement);
                     printf("Entrez le nouveau nom: ");
                     fgets(texte, sizeof(texte), stdin);
                     texte[strcspn(texte, "\n")] = '\0'; // Supprime le retour à la ligne (\n) si présent

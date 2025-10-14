@@ -101,7 +101,7 @@ typedef struct
 void ins_dept();
 int ecrire_departement(const char *nom_fichier, Departement *d);
 int lire_departement(const char *nom_fichier, int id_recherche, Departement *resultat);
-void mod_dept(int ID);
+void mod_dept();
 
 //prototype des fonctions pour gerer les ID
 /*-------------------------------------------------------------------------------------*/

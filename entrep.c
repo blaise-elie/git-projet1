@@ -113,10 +113,10 @@ void menu_parametres() {
   
         switch (sous_choix) {
             case 1:
-                 inserer_departement(1);
+                 ins_dept();
                 break;
             case 2:
-                 modifier_departement(2);
+                 mod_dept();
             
                 break;
             case 3:
@@ -125,7 +125,6 @@ void menu_parametres() {
             case 0:
                 printf("Retour au menu principal...\n");
                 afficher_menu_principale();
-                break;
             default:
                 printf("Choix invalide, veuillez réessayer.\n");
         }
@@ -148,42 +147,32 @@ void menu_parametres() {
 int main() {
     bool running = true;
     int choix;
-
+    while (running) {
     afficher_menu_principale();
     scanf("%d", &choix);
-    switch (choix) {
-        case 1:
-             menu_parametres();
-            break;
-        case 2:
-            insererUsine(1);
-            mod_usine(1);//menu_production();
-            break;
-        case 3:
-            // menu_ventes();
-            break;
-        case 4:
-            // menu_rapports();
-            break;
-        case 0:
-            printf("Merci d'avoir utilisé notre application. Au revoir !\n");
-            running = false;
-            break;
-        default:
-            printf("Choix invalide. Veuillez réessayer.\n");
-            break;
-    }
-    
-
-
-
-
-
-
-
-
-
-
-
-    return 0;
+        switch (choix) {
+            case 1:
+                menu_parametres();
+                break;
+            case 2:
+                ins_usine;
+                mod_usine(1);//menu_production();
+                break;
+            case 3:
+                // menu_ventes();
+                break;
+            case 4:
+                // menu_rapports();
+                break;
+            case 0:
+                printf("Merci d'avoir utilisé notre application. Au revoir !\n");
+                running = false;
+                break;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+                break;
+        }
+ 
+    }  
+  return 0;
 }
