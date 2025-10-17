@@ -29,7 +29,6 @@ void ins_usine(int ID_commune)
     Usine nouvelleUsine;
     char texte[50]; // pour recevoir le texte à saisir
 
-    nouvelleUsine.Id_usine= obtenir_dernier_id_usine("usine.dat") + 1;
     //nouvelleUsine.Id_com= ID_commune;
 
     // Vider le buffer avant de lire une chaîne de caractères
@@ -52,6 +51,7 @@ void ins_usine(int ID_commune)
     if(retour== 1)
     {
         printf("usine ajoutée avec succes\n");
+        nouvelleUsine.Id_usine= obtenir_dernier_id_usine("usine.dat") + 1;
     }
 
     if (lire_usine("usine.dat",nouvelleUsine.Id_usine, &nouvelleUsine)) 
