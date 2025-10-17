@@ -1,5 +1,5 @@
 /*------------------------------------------------------------------------*/
-/* FCHIER:                          usine.c                               */ 
+/* FICHIER:                          usine.c                               */ 
 /*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */    
 /*DATE DE CREATIION:                27/09/2025                            */
 /*DATE DE MODIFICATION:             03/10/2025                            */
@@ -12,6 +12,16 @@
 #include <string.h>
 #include "entrep.h"
 
+/*------------------------------------------------------------------------*/
+/*FONCTION:                         ins_usine                             */ 
+/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */ 
+/*PARAMETRE:                        ID de la commune où se trouve l'usine */
+/*VALEUR DE RETOUR:                 Aucune                                */
+/*DATE DE CREATIION:                27/09/2025                            */
+/*DATE DE MODIFICATION:             03/10/2025                            */
+/*DESCRIPTION:                      Fonction qui permet d'inserer une 
+                                    usine                                 */
+/*------------------------------------------------------------------------*/
 
 //fonction pour inserer une usine
 void ins_usine(int ID_commune) 
@@ -56,7 +66,20 @@ void ins_usine(int ID_commune)
     }
    
 }
-//cette fonction permet d'écrire les infos de l'usine à inserer dans le fichier usine.dat
+
+/*------------------------------------------------------------------------*/
+/*FONCTION:                         ecrire_usine                          */ 
+/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */ 
+/*PARAMETRE:                        Nom du fichier/un pointeur vers une 
+                                    usine                                 */
+/*VALEUR DE RETOUR:                 Un entier                             */
+/*DATE DE CREATIION:                27/09/2025                            */
+/*DATE DE MODIFICATION:             03/10/2025                            */
+/*DESCRIPTION:                      Fonction qui permet d'écrire les infos 
+                                    de l'usine à inserer dans le fichier 
+                                    usine.dat                             */
+/*------------------------------------------------------------------------*/
+
 int ecrire_usine(const char *nom_fichier, Usine *u) 
 {
     FILE *f = fopen(nom_fichier, "wb");//ouvrir le fichier
@@ -69,7 +92,19 @@ int ecrire_usine(const char *nom_fichier, Usine *u)
     fclose(f);
     return 1;
 }
-//cette fonction permet de lire les données stockés dans le fichier usine.dat
+
+/*------------------------------------------------------------------------*/
+/*FONCTION:                         lire_usine                            */ 
+/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */ 
+/*PARAMETRE:                        Nom du fichier/ l'ID de l'usine qu'on 
+                                    cherche/ un pointeur vers une usine   */
+/*VALEUR DE RETOUR:                 Un entier                             */
+/*DATE DE CREATIION:                27/09/2025                            */
+/*DATE DE MODIFICATION:             03/10/2025                            */
+/*DESCRIPTION:                      Fonction qui permet de lire les données
+                                    stockés dans le fichier usine.dat     */
+/*------------------------------------------------------------------------*/
+
 int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat) 
 {
     FILE *f = fopen(nom_fichier, "rb");
@@ -89,8 +124,17 @@ int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat)
     fclose(f);
     return 0; // Usine non trouvée
 }
+/*------------------------------------------------------------------------*/
+/*FONCTION:                         mod_usine                             */ 
+/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */ 
+/*PARAMETRE:                        ID de l'usine à modifier              */
+/*VALEUR DE RETOUR:                 Aucune                                */
+/*DATE DE CREATIION:                27/09/2025                            */
+/*DATE DE MODIFICATION:             03/10/2025                            */
+/*DESCRIPTION:                      Fonction pour modifier les informations
+                                    d'une usine                           */
+/*------------------------------------------------------------------------*/
 
-//Fonction pour modifier les informations d'une usine
 void mod_usine(int ID)
 {
     Usine usine_a_modifier;
@@ -148,8 +192,9 @@ void mod_usine(int ID)
 }
 
 /*-------------------------------------------------------------------------------------*/
-/* FONCTION:              obtenir_dernier_id_usine                                     */
+/* FONCTION:             Obtenir_dernier_id_usine                                      */
 /*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
+/*PARAMETRE:             Nom du fichier                                                */
 /*VALEUR DE RETOUR:      Dernier ID de departement                                     */
 /*AUTEUR:                Blaise Elie                                                   */
 /*DATE DE CREATION:      10/10/2025                                                    */
