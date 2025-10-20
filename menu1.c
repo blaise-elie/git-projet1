@@ -7,13 +7,13 @@
 /*-----------------------------------------------------------------------*/
 
 /*----------------------------------------------------------------------*/
-/* FONCTION:              ajouter_departement                           */
-/* DESCRIPTION:           Ajoute un nouveau département au système     */
-/* PARAMETRES:            Aucun                                         */
-/* VALEUR DE RETOUR:      Aucune                                       */
-/* AUTEUR:                Blaise Elie                                  */
-/* DATE DE CREATION:      25/09/2025                                   */
-/* DATE DE MODIFICATION:  03/10/2025                                   */
+/* Definition de la fonction ajouter un departement*/
+/*DESCRIPTION:            Cette fonction permet d'ajouter un departement*/
+/*PARAMETRES :            Pas de parametre                              */
+/*VALEUR DE RETOUR:       Pas de valeur de retour                      */
+/*AUTEUR:                 Blaise Elie                                   */
+/*DATE DE CREATION:       25/09/2025                                    */  
+/*DATE DE MODIFICATION:   03/10/2025                                    */
 /*----------------------------------------------------------------------*/
 #include<stdio.h>
 #include<stdlib.h>
@@ -25,13 +25,13 @@ void ajouter_departement()
 }
 
 /*----------------------------------------------------------------------*/
-/* FONCTION:              modifier_departement                          */
-/* DESCRIPTION:           Modifie les informations d'un département    */
-/* PARAMETRES:            Aucun                                         */
-/* VALEUR DE RETOUR:      Aucune                                       */
-/* AUTEUR:                Blaise Elie                                  */
-/* DATE DE CREATION:      25/09/2025                                   */
-/* DATE DE MODIFICATION:  03/10/2025                                   */
+/* Definition de la fonction pour modifier  un departement*/
+/*DESCRIPTION:            Cette fonction permet de modifier un departement*/
+/*PARAMETRES :            Pas de parametre                              */
+/*VALEUR DE RETOUR:       Pas de valeur de retour                      */
+/*AUTEUR:                 Blaise Elie                                   */
+/*DATE DE CREATION:       25/09/2025                                    */  
+/*DATE DE MODIFICATION:   03/10/2025                                    */
 /*----------------------------------------------------------------------*/
 
 void modifier_departement()
@@ -42,15 +42,15 @@ void modifier_departement()
 
 }
 
-/*----------------------------------------------------------------------*/
-/* FONCTION:              lister_departements                           */
-/* DESCRIPTION:           Affiche la liste de tous les départements     */
-/* PARAMETRES:            Aucun                                         */
-/* VALEUR DE RETOUR:      Aucune                                       */
-/* AUTEUR:                Blaise Elie                                  */
-/* DATE DE CREATION:      25/09/2025                                   */
-/* DATE DE MODIFICATION:  03/10/2025                                   */
-/*----------------------------------------------------------------------*/
+/*----------------------------------------------------------------------- */
+/* Definition de la fonction pour lister  les departements*/
+/*DESCRIPTION:            Cette fonction permet de lister les departements*/
+/*PARAMETRES :            Pas de parametre                                */
+/*VALEUR DE RETOUR:       Pas de valeur de retour                         */
+/*AUTEUR:                 Blaise Elie                                     */
+/*DATE DE CREATION:       25/09/2025                                      */  
+/*DATE DE MODIFICATION:   03/10/2025                                      */
+/*------------------------------------------------------------------------ */
 
 void lister_departements()
 {
