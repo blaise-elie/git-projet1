@@ -84,7 +84,7 @@ void generer_date_courante(char* date_str);
 /*========================================================================*/
 
 void afficher_banniere(void);
-void afficher_menu_principale(void);
+void afficher_menu_principal(void);
 void menu_parametres(void);
 void menu_production(void);
 void menu_ventes(void);

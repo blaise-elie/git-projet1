@@ -35,7 +35,7 @@ int main() {
     bool running = true;
     int choix;
     while (running) {
-    afficher_menu_principale();
+    afficher_menu_principal();
     scanf("%d", &choix);
         switch (choix) {
             case 1:
@@ -53,7 +53,14 @@ int main() {
                 // menu_rapports();
                 break;
             case 0:
-                printf("Merci d'avoir utilisé notre application. Au revoir !\n");
+                printf("\n");
+                printf("  ╔═══════════════════════════════════════════════════════════════╗\n");
+                printf("  ║                                                               ║\n");
+                printf("  ║         ★ Merci d'avoir utilisé notre système ★              ║\n");
+                printf("  ║                   Au revoir!                                  ║\n");
+                printf("  ║                                                               ║\n");
+                printf("  ╚═══════════════════════════════════════════════════════════════╝\n");
+                printf("\n");
                 running = false;
                 break;
             default:
