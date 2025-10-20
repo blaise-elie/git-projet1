@@ -45,22 +45,23 @@ typedef struct{
     int Lot_qte;
 }Hist_production;
 
+//structure commune
+typedef struct 
+{
+    int id_commune;
+    int id_departement;
+    char nom_com[50];
+    char desc_com[200];
+}Commune;
+
+
+
 //Prototypes des fonctions
 void ins_usine(int ID_commune);
 int ecrire_usine(const char *nom_fichier, Usine *u);
 int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat);
 void mod_usine(int ID);
 
-
-/*------------------------------------------------------------------------*/
-/* FCHIER:                          vente.h                               */
-/*AUTEUR:                           JEAN David Kehl                       */    
-/*DATE DE CREATIION:                26/09/2025                            */  
-/*DATE DE MODIFICATION:             02/10/2025                            */ 
-/*DESCRIPTION:                      fichier contenant les nouveaux types de
-                                    données, les prototypes, les structures 
-                                    de données et les constantes          */    
-/*------------------------------------------------------------------------*/ 
 
 // structure vente
 typedef struct {
@@ -83,11 +84,12 @@ void generer_date_courante(char* date_str);
 /*========================================================================*/
 
 void afficher_banniere(void);
-void afficher_menu_principale(void);
+void afficher_menu_principal(void);
 void menu_parametres(void);
 void menu_production(void);
 void menu_ventes(void);
 void menu_rapports(void);
+void menu_communes(void);
 
 //Structures pour les départements et communes
 typedef struct
@@ -104,25 +106,43 @@ int lire_departement(const char *nom_fichier, int id_recherche, Departement *res
 void mod_dept();
 
 //prototype des fonctions pour gerer les ID
-/*-------------------------------------------------------------------------------------*/
-/* FONCTION:              obtenir_dernier_id_dept                                      */
-/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
-/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
-/*AUTEUR:                Blaise Elie                                                   */
-/*DATE DE CREATION:      10/10/2025                                                    */
-/*DATE DE MODIFICATION:  10/10/2025                                                    */
+                                                   
 
 int obtenir_dernier_id_dept(const char *nom_fichier);
 
 //prototype des fonctions pour gerer les ID
-/*-------------------------------------------------------------------------------------*/
-/* FONCTION:              obtenir_dernier_id_usine                                     */
-/*DESCRIPTION:           Cette fonction permet d'obtenir le dernier ID de departement  */
-/*VALEUR DE RETOUR:      Dernier ID de departement                                     */
-/*AUTEUR:                Blaise Elie                                                   */
-/*DATE DE CREATION:      10/10/2025                                                    */
-/*DATE DE MODIFICATION:  10/10/2025                                                    */
+                                                 
 
 int obtenir_dernier_id_usine(const char *nom_fichier);
+
+//prototype du fonction pour lister les departements
+void lister_departements();
+//prototype focntion pour  obtenir le dernier ID de commune
+int obtenir_dernier_id_commune(const char *nom_fichier);
+//prototype des fonctions pour ecrire une commune(mode ajout)
+int ecrire_commune(const char *nom_fichier, Commune *c);
+//prototype des fonctions pour lire une commune
+int lire_commune(const char *nom_fichier, int id_recherche, Commune *resultat);
+//prototype des fonctions pour modifier une commune
+void mod_com(int ID);
+//prototype des fonctions pour insérer une commune
+void ins_com();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #endif // ENTREP_H

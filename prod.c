@@ -58,15 +58,15 @@ void ins_usine(int ID_commune)
 //cette fonction permet d'écrire les infos de l'usine à inserer dans le fichier usine.dat
 int ecrire_usine(const char *nom_fichier, Usine *u) 
 {
-    FILE *f = fopen(nom_fichier, "wb");//ouvrir le fichier
+    FILE *f = fopen(nom_fichier, "ab"); // ouvrir en mode ajout
     if (f == NULL) 
     {
         printf("Erreur lors de l'ouverture du fichier.\n");
         return 0;
     }
-    fwrite(u, sizeof(Usine), 1, f); //ecrire dans le fichier
+    size_t wrote = fwrite(u, sizeof(Usine), 1, f); //ecrire dans le fichier
     fclose(f);
-    return 1;
+    return (wrote == 1) ? 1 : 0;
 }
 //cette fonction permet de lire les données stockés dans le fichier usine.dat
 int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat) 
@@ -141,6 +141,22 @@ void mod_usine(int ID)
                     break;
             }
         } while (choix != 3);
+        // sauvegarder les modifications dans le fichier
+        FILE *f = fopen("usine.dat", "r+b");
+        if (f == NULL) {
+            printf("Impossible d'ouvrir le fichier pour mise à jour.\n");
+            return;
+        }
+        Usine temp;
+        while (fread(&temp, sizeof(Usine), 1, f) == 1) {
+            if (temp.Id_usine == usine_a_modifier.Id_usine) {
+                fseek(f, -((long)sizeof(Usine)), SEEK_CUR);
+                fwrite(&usine_a_modifier, sizeof(Usine), 1, f);
+                fflush(f);
+                break;
+            }
+        }
+        fclose(f);
     } else {
         printf("Aucune usine trouvée avec l'ID %d\n", ID);
     }
@@ -158,6 +174,9 @@ int obtenir_dernier_id_usine(const char *nom_fichier)
     int max_id = 0;
     Usine usine;
     FILE *f = fopen(nom_fichier, "rb");
+    if (f == NULL) {
+        return 0;
+    }
     while (fread(&usine, sizeof(Usine), 1, f) == 1)
     {
         if (usine.Id_usine > max_id)
