@@ -25,11 +25,7 @@ static VenteProduit ventes_test[] = {
     {"U002", "Usine Cap-Haïtien", "P003", "Sel", 75, 30.0, {.tm_mday=17, .tm_mon=8, .tm_year=125}}
 };
 
-// // Données de test en attendant les vraies données
-// static ProduitEnStock produits_test[] = {
-//     {"U---", "En attente...", "P---", "En attente...", 0},
-//     {"U---", "En attente...", "P---", "En attente...", 0}
-// };
+
 
 //fonction pour les listes de produits disponibles par usine
 void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename)
@@ -87,7 +83,7 @@ float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,con
 
 
     float total = 0.0;
-    printf("Rapport de chiffre d'affaires :\n");
+    
     printf("----------------------------------------\n");
     fprintf(f, "Rapport de chiffre d'affaires :\n");
     fprintf(f, "----------------------------------------\n");
@@ -110,9 +106,9 @@ float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,con
 }
 
 //fonction principale pour tester les fonctions
-int main() {    
-    list_produits_dispo(produits_test, sizeof(produits_test) / sizeof(produits_test[0]), NULL,"list_prod_dispo.txt");
-    list_prod_fab(produits_test, sizeof(produits_test) / sizeof(produits_test[0]), NULL,"list_prod_fab.txt");
-    chiffre_affaire(ventes_test, sizeof(ventes_test) / sizeof(ventes_test[0]), NULL,"chiffre_affaire.txt");
-    return 0;
-}
+// int main() {    
+//     list_produits_dispo(produits_test, sizeof(produits_test) / sizeof(produits_test[0]), NULL,"list_prod_dispo.txt");
+//     list_prod_fab(produits_test, sizeof(produits_test) / sizeof(produits_test[0]), NULL,"list_prod_fab.txt");
+//     chiffre_affaire(ventes_test, sizeof(ventes_test) / sizeof(ventes_test[0]), NULL,"chiffre_affaire.txt");
+//     return 0;
+// }
