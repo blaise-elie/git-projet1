@@ -74,254 +74,51 @@ void List_Prod_Fab() {
         printf("Erreur: Impossible d'ouvrir Hist_Prod.dat\n");
         return;
     }
-    
-    // 3. Parcourir tous les lots de production
-    Hist_production lot;
-    while (fread(&lot, sizeof(Hist_production), 1, fHist) == 1) {
-        
-        // Vérifier si la date est dans la période
-        if (strcmp(lot.Dat_prod, dat_debut) >= 0 && 
-            strcmp(lot.Dat_prod, dat_fin) <= 0) {
-            
-            // 4. Récupérer les infos du produit depuis produits.dat
-            fProd = fopen("produits.dat", "rb");
-            if (fProd == NULL) continue;
-            
-            Produit prod;
-            found = 0;
-            while (fread(&prod, sizeof(Produit), 1, fProd) == 1) {
-                if (strcmp(prod.Id_prod, lot.id_prod) == 0) {
-                    found = 1;
-                    
-                    // 5. Récupérer les infos de l'usine depuis usines.dat
-                    fUsine = fopen("usines.dat", "rb");
-                    if (fUsine != NULL) {
-                        Usine usine;
-                        while (fread(&usine, sizeof(Usine), 1, fUsine) == 1) {
-                            if (strcmp(usine.id_usine, prod.Id_usine) == 0) {
-                                
-                                // 6. Chercher si cette combinaison usine/produit existe déjà
-                                int idx = -1;
-                                for (int i = 0; i < nb_resultats; i++) {
-                                    if (strcmp(resultats[i].nom_usine, usine.Usi_nom) == 0 &&
-                                        strcmp(resultats[i].nom_produit, prod.Pro_nom) == 0) {
-                                        idx = i;
-                                        break;
-                                    }
-                                }
-                                
-                                // 7. Ajouter ou mettre à jour les résultats
-                                if (idx == -1) {
-                                    strcpy(resultats[nb_resultats].nom_usine, usine.Usi_nom);
-                                    strcpy(resultats[nb_resultats].nom_produit, prod.Pro_nom);
-                                    resultats[nb_resultats].qte_totale = lot.Lot_qte;
-                                    nb_resultats++;
-                                } else {
-                                    resultats[idx].qte_totale += lot.Lot_qte;
-                                }
-                                
-                                break;
-                            }
-                        }
-                        fclose(fUsine);
-                    }
-                    break;
-                }
-            }
-            fclose(fProd);
-        }
+
+
+    printf("Produits disponibles par usine :\n");
+    fprintf(f, "Produits disponibles par usine :\n");
+    for (int i = 0; i < nb_produits; i++) {
+        printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
+               produits[i].nom_usine, produits[i].id_usine,
+               produits[i].nom_produit, produits[i].id_produit,
+               produits[i].quantite_stock);
+        fprintf(f, "Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
+               produits[i].nom_usine, produits[i].id_usine,
+               produits[i].nom_produit, produits[i].id_produit,
+               produits[i].quantite_stock);
     }
-    fclose(fHist);
-    
-    // 8. Afficher les résultats sous forme de tableau
-    printf("\n");
-    printf("=================================================================\n");
-    printf("  PRODUITS FABRIQUES DU %s AU %s\n", dat_debut, dat_fin);
-    printf("  Date du rapport: %s\n", __DATE__);
-    printf("=================================================================\n");
-    printf("%-30s %-25s %s\n", "USINE", "PRODUIT", "QUANTITE");
-    printf("-----------------------------------------------------------------\n");
-    
-    for (int i = 0; i < nb_resultats; i++) {
-        printf("%-30s %-25s %d\n", 
-               resultats[i].nom_usine,
-               resultats[i].nom_produit,
-               resultats[i].qte_totale);
-    }
-    
-    printf("=================================================================\n");
-    printf("\nAppuyez sur Entree pour continuer...");
-    getchar();
-    getchar();
+    fclose(f);
 }
-
-
-/*------------------------------------------------------------------------*/
-/* FONCTION:              list_prod_dispo                                 */    
-/*AUTEUR:                 Blaise   Elie                                    */
-/*DATE DE CREATION:      25/10/2025                                       */
-/*DATE DE MODIFICATION:  05/11/2025                                      */
-/*DESCRIPTION:           Fonction pour afficher la liste des produits     */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                        */
-void List_Prod_Dispo() {
-    FILE *fProd, *fUsine;
-    Produit prod;
-    Usine usine;
-    char date_actuelle[20];
-    
-    // Obtenir la date actuelle
-    time_t t = time(NULL);
-    struct tm *tm_info = localtime(&t);
-    strftime(date_actuelle, 20, "%d/%m/%Y", tm_info);
-    
-    // En-tête du rapport
-    printf("\n");
-    printf("=================================================================\n");
-    printf("           LISTE DES PRODUITS DISPONIBLES EN STOCK\n");
-    printf("                    Date: %s\n", date_actuelle);
-    printf("=================================================================\n");
-    printf("%-30s %-25s %s\n", "USINE", "PRODUIT", "QUANTITE");
-    printf("-----------------------------------------------------------------\n");
-    
-    // Ouvrir le fichier des produits
-    fProd = fopen("produits.dat", "rb");
-    if (fProd == NULL) {
-        printf("Erreur: Impossible d'ouvrir produits.dat\n");
+//fonction pour les produits fabriquers
+void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename) 
+{  FILE *f=fopen(filename,"w");
+    if (f == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
         return;
     }
-    
-    // Parcourir tous les produits
-    while (fread(&prod, sizeof(Produit), 1, fProd) == 1) {
-        // Trouver l'usine correspondante
-        fUsine = fopen("usines.dat", "rb");
-        if (fUsine != NULL) {
-            while (fread(&usine, sizeof(Usine), 1, fUsine) == 1) {
-                if (strcmp(usine.id_usine, prod.Id_usine) == 0) {
-                    // Afficher la ligne
-                    printf("%-30s %-25s %d\n", 
-                           usine.Usi_nom,
-                           prod.Pro_nom,
-                           prod.pro_qte);
-                    break;
-                }
-            }
-            fclose(fUsine);
-        }
+
+    printf("Produits fabriqués dans la période donnée :\n");
+    fprintf(f, "Produits fabriqués dans la période donnée :\n");
+    for (int i = 0; i < nb_produits; i++) {
+        printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
+               produits[i].nom_usine, produits[i].id_usine,
+               produits[i].nom_produit, produits[i].id_produit,
+               produits[i].quantite_stock);
+        fprintf(f, "Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
+               produits[i].nom_usine, produits[i].id_usine,
+               produits[i].nom_produit, produits[i].id_produit,
+               produits[i].quantite_stock);
     }
-    
-    fclose(fProd);
-    
-    printf("=================================================================\n");
-    printf("\nAppuyez sur Entree pour continuer...");
-    getchar();
-    getchar();
+    fclose(f);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//fonction pour les listes de produits disponibles par usine
-// void list_produits_dispo(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename)
-// {  FILE *f=fopen(filename,"w");
-
-//     if (f == NULL) {
-//         printf("Impossible d'ouvrir le fichier.\n");
-//         return;
-//     }
-
-
-//     printf("Produits disponibles par usine :\n");
-//     fprintf(f, "Produits disponibles par usine :\n");
-//     for (int i = 0; i < nb_produits; i++) {
-//         printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
-//                produits[i].nom_usine, produits[i].id_usine,
-//                produits[i].nom_produit, produits[i].id_produit,
-//                produits[i].quantite_stock);
-//         fprintf(f, "Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
-//                produits[i].nom_usine, produits[i].id_usine,
-//                produits[i].nom_produit, produits[i].id_produit,
-//                produits[i].quantite_stock);
-//     }
-//     fclose(f);
-// }
-// //fonction pour les produits fabriquers
-// void list_prod_fab(ProduitEnStock produits[], int nb_produits, Periode *periode,const char* filename) 
-// {  FILE *f=fopen(filename,"w");
-//     if (f == NULL) {
-//         printf("Impossible d'ouvrir le fichier.\n");
-//         return;
-//     }
-
-//     printf("Produits fabriqués dans la période donnée :\n");
-//     fprintf(f, "Produits fabriqués dans la période donnée :\n");
-//     for (int i = 0; i < nb_produits; i++) {
-//         printf("Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
-//                produits[i].nom_usine, produits[i].id_usine,
-//                produits[i].nom_produit, produits[i].id_produit,
-//                produits[i].quantite_stock);
-//         fprintf(f, "Usine: %s (%s) - Produit: %s (%s) - Quantité en stock: %d\n",
-//                produits[i].nom_usine, produits[i].id_usine,
-//                produits[i].nom_produit, produits[i].id_produit,
-//                produits[i].quantite_stock);
-//     }
-//     fclose(f);
-// }
-// //focntions pour le chiffre d'affaire
-// float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,const char* filename)
-// { FILE *f=fopen(filename,"w");//ouverture du fichier en mode écriture
-//     if (f == NULL) {
-//         printf("Impossible d'ouvrir le fichier.\n");
-//         return -1.0; // Indiquer une erreur
-//     }
+//focntions pour le chiffre d'affaire
+float chiffre_affaire(VenteProduit ventes[], int nb_ventes, Periode *periode,const char* filename)
+{ FILE *f=fopen(filename,"w");//ouverture du fichier en mode écriture
+    if (f == NULL) {
+        printf("Impossible d'ouvrir le fichier.\n");
+        return -1.0; // Indiquer une erreur
+    }
 
 
 //     float total = 0.0;
