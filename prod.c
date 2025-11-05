@@ -330,12 +330,14 @@ void ins_Prod()
     }
 
     if (lire_produit("produit.dat", nouveauProduit.Id_prod, &nouveauProduit)) 
-    {
-        printf("Nom du produit : %s\n", nouveauProduit.Pro_nom);
-        printf("ID du produit : %d\n", nouveauProduit.Id_prod);
-        printf("Description du produit : %s\n", nouveauProduit.pro_desc);
-        printf("Prix du produit : %.2f\n", nouveauProduit.pro_prix);
-        printf("Quantité du produit disponible: %d\n", nouveauProduit.pro_qte);
+
+    {  //affichage sous forme de tableau des infos du produit ajouté
+        printf("--------------------------------------------------\n");
+        printf("| ID Produit | ID Usine | Nom Produit      | Description Produit  | Prix | Quantité |\n");
+        printf("--------------------------------------------------\n");
+        printf("| %d         | %d        | %s           | %s                 | %.2f | %d       |\n", nouveauProduit.Id_prod, nouveauProduit.Id_usine, nouveauProduit.Pro_nom, nouveauProduit.pro_desc, nouveauProduit.pro_prix, nouveauProduit.pro_qte);
+        printf("--------------------------------------------------\n");
+    
     } 
     else 
     {
@@ -526,13 +528,14 @@ void lister_produits() {
     //afficher les produits avec leurr id et l'ID de l'usine ou ils sont
    printf("\nListe des produits:\n");
    while(fread(&produit, sizeof(Produit), 1, f) == 1) {
-        printf("ID Produit: %d\n", produit.Id_prod);
-        printf("ID Usine: %d\n", produit.Id_usine);
-        printf("Nom Produit: %s\n", produit.Pro_nom);
-        printf("Description Produit: %s\n", produit.pro_desc);
-        printf("Prix Produit: %.2f\n", produit.pro_prix);
-        printf("Quantité Disponible: %d\n", produit.pro_qte);
-        printf("-----------------------\n");
+
+     //affichage sous forme de tableau des infos du produit ajouté
+        printf("--------------------------------------------------\n");
+        printf("| ID Produit | ID Usine | Nom Produit      | Description Produit  | Prix | Quantité |\n");
+        printf("--------------------------------------------------\n");
+        printf("| %d         | %d        | %s           | %s                 | %.2f | %d       |\n", produit.Id_prod, produit.Id_usine, produit.Pro_nom, produit.pro_desc, produit.pro_prix, produit.pro_qte);
+        printf("--------------------------------------------------\n");
+        
     }
 
     fclose(f);
