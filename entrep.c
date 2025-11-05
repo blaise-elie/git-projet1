@@ -135,7 +135,7 @@ int main() {
                 menu_ventes();
                 break;
             case 4:
-                // menu_rapports();
+                 menu_rapports();
                 break;
             case 0:
                 printf("\n");
