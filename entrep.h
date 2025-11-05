@@ -1,459 +1,158 @@
-<<<<<<< HEAD
-/*------------------------------------------------------------------------*/
-/* FCHIER:                          entrep.h                              */
-/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */    
-/*DATE DE CREATIION:                26/09/2025                            */  
-/*DATE DE MODIFICATION:             26/09/2025                            */ 
-/*DESCRIPTION:                      fichier contenant les nouveaux types de
-                                    données, les prototypes, les structures 
-                                    de données et les constantes          */    
-/*------------------------------------------------------------------------*/ 
-
-#ifndef ENTREP_H
-#define ENTREP_H
-
-#include <time.h>
-
-//structure pour la date
-typedef struct {
-    int jour;
-    int mois;
-    int annee;
-} Date;
-
-// Fichiers de données
-#define PRODUIT_FILE "produit.dat"
-#define HIST_VENTES_FILE "Hist_Ventes.dat"
-#define HIST_PROD_FILE "Hist_Prod.dat"
-#define FICHIER_DEPARTEMENT "departement.dat"
-#define FICHIER_COMMUNE "commune.dat"
-
-//structure usine
-typedef struct{
-    int id_usine;
-    int id_com;
-    char Usi_nom[50];
-    char Usin_desc[200];
-}Usine;
-
-//structure produit
-typedef struct{
-    int Id_prod;
-    int Id_usine;
-    char Pro_nom[50];
-    char pro_desc[200];
-    float pro_prix;
-    int pro_qte;
-}Produit;
-
-//structure Historique production
-typedef struct{
-    int Id_lot;
-    int id_prod;
-    char Dat_prod[11];
-    char Dat_exp[11];
-    int Lot_qte;
-}Hist_production;
-
-// structure vente
-typedef struct {
-    int id_vente;
-    int id_prod;
-    char dat_vente[11]; // format "JJ/MM/AAAA"
-    int qte_vendue;
-    float prix_unit;
-    float prix_total;
-} Vente;
-
-// --- Prototypes des fonctions ---
-int mettre_a_jour_stock(int id_prod, int qte_vendue);
-int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
-void generer_date_courante(char* date_str);
-//structure commune
-typedef struct 
-{
-    int id_commune;
-    int id_departement;
-    char nom_com[50];
-    char desc_com[200];
-}Commune;
-
-//structure Historique production
-typedef struct{
-    int Id_lot;
-    int id_prod;
-    char Dat_prod[11];
-    char Dat_exp[11];
-    int Lot_qte;
-}Hist_production;
-
-//Prototypes des fonctions
-void ins_usine();
-int ecrire_usine(const char *nom_fichier, Usine *u);
-int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat);
-int lire_produit(const char *nom_fichier, int id_recherche, Produit *resultat);
-void mod_usine();
-void mod_produit();
-void ins_Prod();
-int obtenir_dernier_id_usine(const char *nom_fichier);
-void lister_usines();
-
-// structure vente
-// typedef struct {
-//     int id_vente;
-//     int id_prod;
-//     char dat_vente[11]; // format "JJ/MM/AAAA"
-//     int qte_vendue;
-//     float prix_unit;
-//     float prix_total;
-// } Vente;
-
-// --- Prototypes des fonctions ---
-int mettre_a_jour_stock(int id_prod, int qte_vendue);
-int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
-void generer_date_courante(char* date_str);
-
-/*===========
-=============================================================*/
-/*                    PROTOTYPES - MENUS                                  */
-/*========================================================================*/
-
-void afficher_banniere(void);
-void afficher_menu_principal(void);
-void menu_departements(void);
-void menu_production(void);
-void menu_ventes(void);
-void menu_rapports(void);
-void menu_communes(void);
-void menu_usines(void);
-void mod_prod (void);
-//Structures pour les départements et communes
-typedef struct
-{
-    int id_departement;
-    char nom_departement[50];
-    char desc_departement[200];
-} Departement;
-
-// Prototype des fonctions pour les départements
-void ins_dept();
-int ecrire_departement(const char *nom_fichier, Departement *d);
-int lire_departement(const char *nom_fichier, int id_recherche, Departement *resultat);
-void mod_dept();
-
-//prototype des fonctions pour gerer les ID
-                                                   
-
-int obtenir_dernier_id_dept(const char *nom_fichier);
-
-//prototype des fonctions pour gerer les ID
-                                                 
-
-int obtenir_dernier_id_usine(const char *nom_fichier);
-
-//prototype du fonction pour lister les departements
-void lister_departements();
-//prototype focntion pour  obtenir le dernier ID de commune
-int obtenir_dernier_id_commune(const char *nom_fichier);
-//prototype des fonctions pour ecrire une commune(mode ajout)
-int ecrire_commune(const char *nom_fichier, Commune *c);
-//prototype des fonctions pour lire une commune
-int lire_commune(const char *nom_fichier, int id_recherche, Commune *resultat);
-//prototype des fonctions pour modifier une commune
-void mod_com();
-//prototype des fonctions pour insérer une commune
-void ins_com();
-// prototype de la fonction qui permet de verifier si le nom d'un departement existe deja dans le fichier departement.dat
-int verifier_nom_departement_existe(const char *nom_fichier, const char *nom_dept);
-//prototype de la fonction pour obtenir le dernier ID de produit
-int obtenir_dernier_id_produit(const char *nom_fichier);
-//prototype des fonctions pour ecrire un produit(mode ajout)
-int ecrire_produit(const char *nom_fichier, Produit *p);
-//prototype des fonctions pour lire un produit
-int lire_produit(const char *nom_fichier, int id_recherche, Produit *resultat);
-//prototype des fonctions pour lister les communes
-void lister_communes();
-//prototype fonction pour lister les produits
-void lister_produits();
-//prototype de la focntion inserer une vente
-int ins_vente();
-//protype de la fonction pour verifier si un nom de commune existe déjà dans le même département
-int verifier_nom_commune_existe(const char *nom_fichier, const char *nom_com);
-//protype de la fonction generer la date courante
-void generer_date_courante(char* date_str);
-//protype de la fonction  menu pour les ventes
-void menu_ventes(void);
-//prototype de la fonction vifer buffer
-void vider_buffer(void);
-
-//prototype de la fonction pour incrementer l'id des ventes
-int obtenir_dernier_id_vente(const char *nom_fichier);
-//prototype de la fonction menus rapports
-void menu_rapports(void);
-//structure pour stocker une periode de date
-
-//prototype fonction enregistrer production 
-void enregistrer_production();
-typedef struct
-  {
-  struct tm date_debut;
-  struct tm date_fin;
-  }Periode;
-
-
-
-
-// proyotype de la Fonction pour lister les produits disponibles en stock repartis par usine et par produit
-void list_prod_dispo();
-// prototype de la Fonction pour lister les produits fabriqués dans une période donnée
-void list_prod_fab();
-// prototype de la Fonction pour calculer et afficher le chiffre d'affaire par période
-void chiffre_affaire();
-
-//creatio d'une tableau de structure pour stocker les produits en stock par usine
-typedef struct {
-    int id_usine;
-    char nom_usine[50];
-    char id_usine_str[10];
-    int id_produit;
-    char nom_produit[50];
-    char id_produit_str[10];
-    int quantite_stock;
-}ProduitEnStock;
-
-
-
-
-
-
-
-
-
-
-
-#endif // ENTREP_H
-=======
-/*------------------------------------------------------------------------*/
-/* FCHIER:                          entrep.h                              */
-/*AUTEUR:                           PIERRE-LOUIS Alven Bernadin           */    
-/*DATE DE CREATIION:                26/09/2025                            */  
-/*DATE DE MODIFICATION:             26/09/2025                            */ 
-/*DESCRIPTION:                      fichier contenant les nouveaux types de
-                                    données, les prototypes, les structures 
-                                    de données et les constantes          */    
-/*------------------------------------------------------------------------*/ 
-
-#ifndef ENTREP_H
-#define ENTREP_H
-
-#include <time.h>
-
-//structure pour la date
-typedef struct {
-    int jour;
-    int mois;
-    int annee;
-} Date;
-
-// Fichiers de données
-#define PRODUIT_FILE "produit.dat"
-#define HIST_VENTES_FILE "Hist_Ventes.dat"
-#define HIST_PROD_FILE "Hist_Prod.dat"
-#define FICHIER_DEPARTEMENT "departement.dat"
-#define FICHIER_COMMUNE "commune.dat"
-
-//structure usine
-typedef struct{
-    int id_usine;
-    int id_com;
-    char Usi_nom[50];
-    char Usin_desc[200];
-}Usine;
-
-//structure produit
-typedef struct{
-    int Id_prod;
-    int Id_usine;
-    char Pro_nom[50];
-    char pro_desc[200];
-    float pro_prix;
-    int pro_qte;
-}Produit;
-
-//structure Historique production
-typedef struct{
-    int Id_lot;
-    int id_prod;
-    char Dat_prod[11];
-    char Dat_exp[11];
-    int Lot_qte;
-}Hist_production;
-
-// structure vente
-typedef struct {
-    int id_vente;
-    int id_prod;
-    char dat_vente[11]; // format "JJ/MM/AAAA"
-    int qte_vendue;
-    float prix_unit;
-    float prix_total;
-} Vente;
-
-// --- Prototypes des fonctions ---
-int mettre_a_jour_stock(int id_prod, int qte_vendue);
-int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
-void generer_date_courante(char* date_str);
-//structure commune
-typedef struct 
-{
-    int id_commune;
-    int id_departement;
-    char nom_com[50];
-    char desc_com[200];
-}Commune;
-
-
-
-//Prototypes des fonctions
-void ins_usine();
-int ecrire_usine(const char *nom_fichier, Usine *u);
-int lire_usine(const char *nom_fichier, int id_recherche, Usine *resultat);
-int lire_produit(const char *nom_fichier, int id_recherche, Produit *resultat);
-void mod_usine();
-void mod_produit();
-void ins_Prod();
-int obtenir_dernier_id_usine(const char *nom_fichier);
-void lister_usines();
-
-// structure vente
-// typedef struct {
-//     int id_vente;
-//     int id_prod;
-//     char dat_vente[11]; // format "JJ/MM/AAAA"
-//     int qte_vendue;
-//     float prix_unit;
-//     float prix_total;
-// } Vente;
-
-// --- Prototypes des fonctions ---
-int mettre_a_jour_stock(int id_prod, int qte_vendue);
-int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
-void generer_date_courante(char* date_str);
-
-/*===========
-=============================================================*/
-/*                    PROTOTYPES - MENUS                                  */
-/*========================================================================*/
-
-void afficher_banniere(void);
-void afficher_menu_principal(void);
-void menu_departements(void);
-void menu_production(void);
-void menu_ventes(void);
-void menu_rapports(void);
-void menu_communes(void);
-void menu_usines(void);
-void mod_prod (void);
-//Structures pour les départements et communes
-typedef struct
-{
-    int id_departement;
-    char nom_departement[50];
-    char desc_departement[200];
-} Departement;
-
-// Prototype des fonctions pour les départements
-void ins_dept();
-int ecrire_departement(const char *nom_fichier, Departement *d);
-int lire_departement(const char *nom_fichier, int id_recherche, Departement *resultat);
-void mod_dept();
-
-//prototype des fonctions pour gerer les ID
-                                                   
-
-int obtenir_dernier_id_dept(const char *nom_fichier);
-
-//prototype des fonctions pour gerer les ID
-                                                 
-
-int obtenir_dernier_id_usine(const char *nom_fichier);
-
-//prototype du fonction pour lister les departements
-void lister_departements();
-//prototype focntion pour  obtenir le dernier ID de commune
-int obtenir_dernier_id_commune(const char *nom_fichier);
-//prototype des fonctions pour ecrire une commune(mode ajout)
-int ecrire_commune(const char *nom_fichier, Commune *c);
-//prototype des fonctions pour lire une commune
-int lire_commune(const char *nom_fichier, int id_recherche, Commune *resultat);
-//prototype des fonctions pour modifier une commune
-void mod_com();
-//prototype des fonctions pour insérer une commune
-void ins_com();
-// prototype de la fonction qui permet de verifier si le nom d'un departement existe deja dans le fichier departement.dat
-int verifier_nom_departement_existe(const char *nom_fichier, const char *nom_dept);
-//prototype de la fonction pour obtenir le dernier ID de produit
-int obtenir_dernier_id_produit(const char *nom_fichier);
-//prototype des fonctions pour ecrire un produit(mode ajout)
-int ecrire_produit(const char *nom_fichier, Produit *p);
-//prototype des fonctions pour lire un produit
-int lire_produit(const char *nom_fichier, int id_recherche, Produit *resultat);
-//prototype des fonctions pour lister les communes
-void lister_communes();
-//prototype fonction pour lister les produits
-void lister_produits();
-//prototype de la focntion inserer une vente
-int ins_vente();
-//protype de la fonction pour verifier si un nom de commune existe déjà dans le même département
-int verifier_nom_commune_existe(const char *nom_fichier, const char *nom_com);
-//protype de la fonction generer la date courante
-void generer_date_courante(char* date_str);
-//protype de la fonction  menu pour les ventes
-void menu_ventes(void);
-//prototype de la fonction vifer buffer
-void vider_buffer(void);
-
-//prototype de la fonction pour incrementer l'id des ventes
-int obtenir_dernier_id_vente(const char *nom_fichier);
-//prototype de la fonction menus rapports
-void menu_rapports(void);
-//structure pour stocker une periode de date
-typedef struct
-  {
-  struct tm date_debut;
-  struct tm date_fin;
-  }Periode;
-
-
-
-
-// proyotype de la Fonction pour lister les produits disponibles en stock repartis par usine et par produit
-void list_prod_dispo();
-// prototype de la Fonction pour lister les produits fabriqués dans une période donnée
-void list_prod_fab();
-// prototype de la Fonction pour calculer et afficher le chiffre d'affaire par période
-void chiffre_affaire();
-
-//creatio d'une tableau de structure pour stocker les produits en stock par usine
-typedef struct {
-    int id_usine;
-    char nom_usine[50];
-    char id_usine_str[10];
-    int id_produit;
-    char nom_produit[50];
-    char id_produit_str[10];
-    int quantite_stock;
-}ProduitEnStock;
-
-
-
-
-
-
-
-
-
-
-
-#endif // ENTREP_H
->>>>>>> 16d998371f4d71ffd3ff471c01450329f54db791
+/*-----------------------------------------------------------------------*/
+/* FICHIER:                          menu.c                              */
+/* AUTEUR:                           Blaise Elie                         */    
+/* DATE DE CREATION:                25/09/2025                           */
+/* DATE DE MODIFICATION:            04/10/2025                           */
+/* DESCRIPTION:                     Menu principal du programme          */    
+/*-----------------------------------------------------------------------*/
+
+#include<stdio.h>
+#include<stdlib.h>  
+#include<stdbool.h>
+#include<time.h>
+#include<string.h>
+#include "entrep.h"
+
+
+
+/*----------------------------------------------------------------------*/
+/* FONCTION:              afficher_menu_principal                       */
+/* DESCRIPTION:           Affiche le menu principal amélioré           */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                       */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  04/10/2025                                   */
+/*----------------------------------------------------------------------*/
+
+void afficher_menu_principal() {
+     // Afficher la date et l'heure actuelles
+     time_t t = time(NULL);
+     struct tm *tm_info = localtime(&t);
+     char date_str[100];
+     strftime(date_str, sizeof(date_str), "%d/%m/%Y - %H:%M", tm_info);
+    afficher_banniere();
+    printf("\n");
+    printf("  ┌───────────────────────────────────────────────────────────────────────┐\n");
+    printf("  │                        ★ MENU PRINCIPAL ★                            │\n");
+    printf("  ├───────────────────────────────────────────────────────────────────────┤\n");
+    printf("  │              %s                                                       │\n", date_str);
+    printf("  │      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    │\n");
+    printf("  │      ┃  [1] ► Paramètres                                         ┃    │\n");
+    printf("  │      ┃       └─ Gestion des Départements et Communes             ┃    │\n");
+    printf("  │      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    │\n");
+    printf("  │                                                                       │\n");
+    printf("  │      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    │\n");
+    printf("  │      ┃  [2] ► Production                                         ┃    │\n");
+    printf("  │      ┃       └─ Usines, Produits et Historiques                  ┃    │\n");
+    printf("  │      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    │\n");
+    printf("  │                                                                       │\n");
+    printf("  │      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    │\n");
+    printf("  │      ┃  [3] ► Ventes                                             ┃    │\n");
+    printf("  │      ┃       └─ Gestion des Ventes de Produits                   ┃    │\n");
+    printf("  │      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    │\n");
+    printf("  │                                                                       │\n");
+    printf("  │      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    │\n");
+    printf("  │      ┃  [4] ► Rapports et Statistiques                           ┃    │\n");
+    printf("  │      ┃       └─ Analyses et Tableaux de Bord                     ┃    │\n");
+    printf("  │      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    │\n");
+    printf("  │                                                                       │\n");
+    printf("  │      ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓    │\n");
+    printf("  │      ┃  [0] ► Quitter                                            ┃    │\n");
+    printf("  │      ┃       └─ Fermer le programme                              ┃    │\n");
+    printf("  │      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛    │\n");
+    printf("  │                                                                       │\n");
+    printf("  └───────────────────────────────────────────────────────────────────────┘  \n");
+    printf("\n  ╔═══════════════════════════════════════════════════════════════════════╗\n");
+    printf("    ║  Votre choix ► ");
+}
+
+
+
+/*----------------------------------------------------------------------*/
+/* FONCTION:              afficher_banniere                             */
+/* DESCRIPTION:           Affiche la bannière du système                */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      Aucune                                        */
+/* AUTEUR:                Blaise Elie                                   */
+/* DATE DE CREATION:      25/09/2025                                    */
+/* DATE DE MODIFICATION:  04/10/2025                                    */
+/*----------------------------------------------------------------------*/
+
+void afficher_banniere() {
+    system("clear"); // Ou system("cls"); pour Windows
+    
+    printf("\n");
+    printf("  ╔═══════════════════════════════════════════════════════════════════════╗\n");
+    printf("  ║                                                                       ║\n");
+    printf("  ║     ██╗   ██╗███████╗██╗███╗   ██╗███████╗███████╗                    ║\n");
+    printf("  ║     ██║   ██║██╔════╝██║████╗  ██║██╔════╝██╔════╝                    ║\n");
+    printf("  ║     ██║   ██║███████╗██║██╔██╗ ██║█████╗  ███████╗                    ║\n");
+    printf("  ║     ██║   ██║╚════██║██║██║╚██╗██║██╔══╝  ╚════██║                    ║\n");
+    printf("  ║     ╚██████╔╝███████║██║██║ ╚████║███████╗███████║                    ║\n");
+    printf("  ║      ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝                    ║\n");
+    printf("  ║                                                                       ║\n");
+    printf("  ║          ╔════════════════════════════════════════════╗               ║\n");
+    printf("  ║          ║  SYSTÈME DE GESTION DE PRODUCTION          ║               ║\n");
+    printf("  ║          ║  Transformation Agricole - Haïti           ║               ║\n");
+    printf("  ║          ╚════════════════════════════════════════════╝               ║\n");
+    printf("  ║                                                                       ║\n");
+    printf("  ║              ⚙  Université d'État d'Haïti  ⚙                         ║\n");
+    printf("  ║              ⚙  Faculté des Sciences       ⚙                         ║\n");
+    printf("  ║                                                                       ║\n");
+    printf("  ║      Bienvenue dans notre application de gestion des usines           ║\n");
+     printf(" ║      agro-industrielles. Cette application vous permet de gérer       ║\n");
+    printf("  ║      les productions des usines agro-industrielles en Haïti.          ║\n");                                                                               
+    printf("  ╚═══════════════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+}
+
+
+
+/* DESCRIPTION:           Fonction principale du programme              */
+/* PARAMETRES:            Aucun                                         */
+/* VALEUR DE RETOUR:      0 si succès                                  */
+/* AUTEUR:                Blaise Elie                                  */
+/* DATE DE CREATION:      25/09/2025                                   */
+/* DATE DE MODIFICATION:  04/10/2025                                   */
+/*----------------------------------------------------------------------*/
+int main() {
+    bool running = true;
+    int choix;
+    while (running) {
+    afficher_menu_principal();
+    scanf("%d", &choix);
+        switch (choix) {
+            case 1:
+                menu_departements();
+                break;
+            case 2:
+                menu_usines();
+                break;
+                
+            case 3:
+                lister_produits();
+                menu_ventes();
+                break;
+            case 4:
+                 menu_rapports();
+                break;
+            case 0:
+                printf("\n");
+                printf("  ╔═══════════════════════════════════════════════════════════════╗\n");
+                printf("  ║                                                               ║\n");
+                printf("  ║         ★ Merci d'avoir utilisé notre système ★              ║\n");
+                printf("  ║                   Au revoir!                                  ║\n");
+                printf("  ║                                                               ║\n");
+                printf("  ╚═══════════════════════════════════════════════════════════════╝\n");
+                printf("\n");
+                running = false;
+                break;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+                break;
+        }
+ 
+    }  
+  return 0;
+}
