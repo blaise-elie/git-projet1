@@ -139,7 +139,7 @@ void menu_communes(void) {
                     mod_com();
                 break;
             case 3:
-                //lister_communes();
+                lister_communes();
                 break;
             case 4:
                 menu_usines();
@@ -459,10 +459,11 @@ void lister_departements()
     printf("-----------------------\n");
     while (fread(&dept, sizeof(Departement), 1, f) == 1)
     {
-        printf("ID: %d\n", dept.id_departement);
-        printf("Nom: %s\n", dept.nom_departement);
-        printf("Description: %s\n", dept.desc_departement);
-        printf("-----------------------\n");
+       //afficher sur forme de tableau (lignes et colonnes) les infos du département avec son id , le nom et la description
+        printf("| ID Departement| Nom Departement | Description Departement  |\n");
+        printf("--------------------------------------------------\n");
+        printf("| %d             | %s                   | %s                   |\n", dept.id_departement,dept.nom_departement, dept.desc_departement);
+        printf("--------------------------------------------------\n");
     }
 
     fclose(f);
@@ -833,6 +834,7 @@ void menu_ventes(void)
   
         switch (sous_choix) {
             case 1:
+                lister_produits();
                 ins_vente();
                 break;
             case 2:
@@ -862,4 +864,47 @@ void vider_buffer(void)
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+/*-----------------------------------------------------------------*/   
+/* FONCTION:              menu_rapports                             */  
+/* DESCRIPTION:            Affiche le menu des rapports             */  
+/*VALEUR DE RETOUR:       Pas de valeur de retour                  */   
+/*AUTEUR:                David Kehl                                */
+/*DATE DE CREATION:      22/10/2025                                */
+/*DATE DE MODIFICATION:   30/10/2025                               */
+
+void menu_rapports(void)
+{ int sous_choix =-1;    
+    while (sous_choix != 0) {
+        printf("\n");
+        printf("┌────────────────────────────────────────────────┐\n");
+        printf("│             ★ GESTION DES RAPPORTS ★           │\n");
+        printf("└────────────────────────────────────────────────┘\n");
+        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
+        printf("   ┃  [1] ► Liste des produits disponibles    ┃   \n");
+        printf("   ┃  [2] ► Liste des produits fabriqués      ┃   \n");       
+        printf("   ┃  [3] ► Chiffre d'affaire par periode     ┃   \n");
+        printf("   ┃  [0] ► Retour au menu principal          ┃   \n");
+        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
+        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
+        printf(" ┃  Veuillez faire Votre choix ►► ");
+        scanf("%d", &sous_choix);
+        switch (sous_choix) {
+            case 1:
+                list_prod_fab();
+                break;
+            case 2:
+                list_prod_dispo();
+                break;
+            case 3:
+                chiffre_affaire();
+                break;
+            case 0:
+                printf("Retour au menu principal...\n");
+                afficher_menu_principal();
+            default:
+                printf("Choix invalide, veuillez réessayer.\n");
+        }
+    }
 }
