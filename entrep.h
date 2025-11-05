@@ -11,6 +11,8 @@
 #ifndef ENTREP_H
 #define ENTREP_H
 
+#include <time.h>
+
 //structure pour la date
 typedef struct {
     int jour;
@@ -21,6 +23,9 @@ typedef struct {
 // Fichiers de données
 #define PRODUIT_FILE "produit.dat"
 #define HIST_VENTES_FILE "Hist_Ventes.dat"
+#define HIST_PROD_FILE "Hist_Prod.dat"
+#define FICHIER_DEPARTEMENT "departement.dat"
+#define FICHIER_COMMUNE "commune.dat"
 
 //structure usine
 typedef struct{
@@ -175,13 +180,35 @@ void vider_buffer(void);
 
 //prototype de la fonction pour incrementer l'id des ventes
 int obtenir_dernier_id_vente(const char *nom_fichier);
+//prototype de la fonction menus rapports
+void menu_rapports(void);
+//structure pour stocker une periode de date
+typedef struct
+  {
+  struct tm date_debut;
+  struct tm date_fin;
+  }Periode;
 
 
 
 
+// proyotype de la Fonction pour lister les produits disponibles en stock repartis par usine et par produit
+void list_prod_dispo();
+// prototype de la Fonction pour lister les produits fabriqués dans une période donnée
+void list_prod_fab();
+// prototype de la Fonction pour calculer et afficher le chiffre d'affaire par période
+void chiffre_affaire();
 
-
-
+//creatio d'une tableau de structure pour stocker les produits en stock par usine
+typedef struct {
+    int id_usine;
+    char nom_usine[50];
+    char id_usine_str[10];
+    int id_produit;
+    char nom_produit[50];
+    char id_produit_str[10];
+    int quantite_stock;
+}ProduitEnStock;
 
 
 
