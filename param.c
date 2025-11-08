@@ -10,247 +10,6 @@
 //#define  FICHIER_DEPARTEMENT   "departement.dat"
 
 
-// void afficher_banniere() {
-    
-//     printf("********************************************************************************\n");
-//     printf("*                                                                              *\n");
-//     printf("*          SYSTÈME DE GESTION DES USINES AGRO-INDUSTRIELLES D'HAÏTI            *\n");
-//     printf("*                                                                              *\n");
-//     printf("*                   Transformation des Produits Agricoles                      *\n");
-//     printf("*                                                                              *\n");
-//     printf("********************************************************************************\n\n");
-//     printf("* Bienvenue dans notre application de gestion des usines agro-industrielles    *!\n");
-//     printf("* Cette application vous permet de gérer les départements, communes, usines,   *\n");
-//     printf("*             produits, lots, ventes, rapports et statistiques.\n\n            0*");
-//     printf("********************************************************************************\n");
-// }
-
-
-// void afficher_menu_principale()
-// {
-//       // Afficher la date et l'heure actuelles
-//     time_t t = time(NULL);
-//     struct tm *tm_info = localtime(&t);
-//     char date_str[100];
-//     strftime(date_str, sizeof(date_str), "%d/%m/%Y - %H:%M", tm_info);+
-
-
-//   afficher_banniere();
-    // printf("║║===============================================================================║║\n");
-    // printf("║║                          MENU PRINCIPAL                                    \n");
-    // printf("║║                          %s                                      ║║\n", date_str);
-    // printf("║║===============================================================================║║\n");
-    // printf("║║                                                                               ║║\n");
-    // printf("║║  1.  Paramètres (Départements / Communes)                                     ║║\n");
-    // printf("║║  2.  Production (Usines / Produits / Lots)                                    ║║\n");
-    // printf("║║  3.  Ventes                                                                   ║║\n");
-    // printf("║║  4.  Rapports et Statistiques                                                 ║║\n");
-    // printf("║║                                                                               ║║\n");
-    // printf("║║  0.  Quitter                                                                  ║║\n");
-    // printf("║║                                                                               ║║\n");
-    // printf("║║===============================================================================║║\n");
-    // printf("\n Veuillez faire Votre choix : ");
-//}
-
-
-/*----------------------------------------------------------------------*/
-/* FONCTION:              afficher menu parametres                      */
-/* DESCRIPTION:           Affiche le menu paramètres du système         */
-/* PARAMETRES:            Aucun                                         */
-/* VALEUR DE RETOUR:      Aucune                                        */
-/* AUTEUR:                Blaise Elie                                   */
-/* DATE DE CREATION:      25/09/2025                                    */
-/* DATE DE MODIFICATION:  04/10/2025                                    */  
-/*----------------------------------------------------------------------*/
-void menu_departements() {
-    int sous_choix = -1;
-    // char id_departement[10];
-    
-    while (sous_choix != 0) {
-        printf("\n");
-        printf("┌────────────────────────────────────────────────┐\n");
-        printf("│          ★ GESTION DES DÉPARTEMENTS ★         │\n");
-        printf("└────────────────────────────────────────────────┘\n");
-        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ► Ajouter un nouveau département    ┃   \n");
-        printf("   ┃  [2] ► Modifier un département           ┃   \n");
-        printf("   ┃  [3] ► Lister tous les départements      ┃   \n");
-        printf("   ┃  [4] ► Gerer les communes                ┃   \n");
-        printf("   ┃  [0] ► Retour au menu principal          ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-
-        
-        scanf("%d", &sous_choix);
-  
-        switch (sous_choix) {
-            case 1:
-                 ins_dept();
-                break;
-            case 2:
-                 mod_dept();
-            
-                break;
-            case 3:
-                lister_departements();
-                break;
-            case 4:
-                menu_communes();
-            case 0:
-                printf("Retour au menu principal...\n");
-                afficher_menu_principal();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-
-
-}
-
-
-//corps fonction menu communes
-void menu_communes(void) {
-    int sous_choix = -1;    
-    while (sous_choix != 0) {
-        printf("\n");
-        printf("┌────────────────────────────────────────────────┐\n");
-        printf("│          ★ GESTION DES COMMUNE ★              │\n");
-        printf("└────────────────────────────────────────────────┘\n");
-        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ► Ajouter une nouvelle commune      ┃   \n");
-        printf("   ┃  [2] ► Modifier une commune              ┃   \n");
-        printf("   ┃  [3] ► Lister toutes les communes        ┃   \n");               
-        printf("   ┃  [0] ► Retour au menu des departements   ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-        
-        scanf("%d", &sous_choix);
-  
-        switch (sous_choix) {
-            case 1:
-                printf("Voici la liste des départements existants:\n");
-                    lister_departements();
-                    ins_com();
-                break;
-            case 2:
-                printf("Voici la liste des communes existantes:\n");
-                    mod_com();
-                break;
-            case 3:
-                lister_communes();
-                break;
-            case 4:
-                menu_usines();
-                break;
-            case 0:
-                printf("Retour au menu departement...\n");
-                menu_departements();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-}
-
-//corps de la fonction menu usines
-void menu_usines(void) {
-
-       int sous_choix = -1;    
-    while (sous_choix != 0) {
-             printf("┌────────────────────────────────────┐\n");
-             printf("│        GESTION DES USINES          │ \n");
-             printf("└────────────────────────────────────┘\n");
-          printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ► Ajouter une nouvelle usine        ┃   \n");
-        printf("   ┃  [2] ► Modifier une usine                ┃   \n");       
-        printf("   ┃  [3] ► Lister toutes les usines          ┃   \n");
-        printf("   ┃  [4] ► Gerer la production               ┃   \n");
-        printf("   ┃  [0] ► Retour au menu des communes       ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-
-        
-        scanf("%d", &sous_choix);
-  
-        switch (sous_choix) {
-            case 1:
-                printf("Voici la liste des communes existantes:\n");
-                lister_communes();
-                ins_usine();
-                break;
-            case 2:
-                mod_usine();
-                break;
-            case 3:
-                lister_usines();
-                break;
-            case 4:
-               menu_production();
-            case 0:
-                printf("Retour au menu communes...\n");
-                menu_communes();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-
-
-
-}
-
-//corps de la fonction menu de production
-void menu_production() {
-    int sous_choix = -1;
-    // char id_departement[10];
-    
-    while (sous_choix != 0) {
-        printf("\n");
-        printf("┌────────────────────────────────────────────────┐\n");
-        printf("│             ★ GESTION DE PRODUITS ★           │\n");
-        printf("└────────────────────────────────────────────────┘\n");
-        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ► Ajouter un nouveau produit        ┃   \n");
-        printf("   ┃  [2] ► Modifier un produit               ┃   \n");
-        printf("   ┃  [3] ► Lister tous les produits          ┃   \n");
-        printf("   ┃  [4] ► Enregistrer une production        ┃   \n");
-        printf("   ┃  [0] ► Retour au menu de usines          ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-
-        
-        scanf("%d", &sous_choix);
-  
-        switch (sous_choix) {
-            case 1:
-                printf("Voici la liste des usines existantes:\n");
-                lister_usines();
-                ins_Prod();
-                
-                break;
-            case 2:
-                 mod_prod();
-            
-                break;
-            case 3:
-                lister_produits();
-                break;
-            case 4:
-                
-                enregistrer_production();
-                break;
-            case 0:
-                printf("Retour au menu des usines...\n");
-                 menu_usines();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-
-
-}
 
 
 //corps fonction pour obtenir le dernier ID de departement
@@ -270,6 +29,19 @@ int obtenir_dernier_id_dept(const char *nom_fichier)
         // fichier inexistant -> pas d'enregistrements
         return 0;
     }
+    // Check file size first: if file is empty, return 0
+    if (fseek(f, 0, SEEK_END) != 0) {
+        fclose(f);
+        return 0;
+    }
+    long sz = ftell(f);
+    if (sz < (long)sizeof(Departement)) {
+        // file too small to contain a valid record
+        fclose(f);
+        return 0;
+    }
+    // rewind and scan records to find the max id
+    rewind(f);
     while (fread(&dept, sizeof(Departement), 1, f) == 1)
     {
         if (dept.id_departement > max_id)
@@ -285,7 +57,7 @@ int obtenir_dernier_id_dept(const char *nom_fichier)
 
 
 void ins_dept()
-{   lister_departements();
+{   //lister_departements();
     Departement nouveauDepartement;
     
     char texte[50]; // pour recevoir le texte à saisir
@@ -334,7 +106,7 @@ void ins_dept()
     {
         printf("Département non trouvé.\n");
     }
-
+   
 }
 
 
@@ -401,7 +173,6 @@ void mod_dept()
 
             switch(choix) {
                 case 1:
-                    printf("Vous allez modifier le nom du département (ID: %d)\n", modDepartement.id_departement);
                     printf("Entrez le nouveau nom: ");
                     fgets(texte, sizeof(texte), stdin);
                     texte[strcspn(texte, "\n")] = '\0'; // Supprime le retour à la ligne (\n) si présent
@@ -435,7 +206,7 @@ void mod_dept()
                 fseek(f, -((long)sizeof(Departement)), SEEK_CUR);
                 fwrite(&modDepartement, sizeof(Departement), 1, f);
                 fflush(f);
-                break;
+                break;  
             }
         }
         fclose(f);
@@ -683,11 +454,35 @@ void mod_com()
                         break;
                 }
             } while (choix != 3);
-            if (ecrire_commune(FICHIER_COMMUNE, &nouvellecommune)) {
-                printf("Modifications enregistrées avec succès.\n");
-            } else {
-                printf("Erreur lors de l'enregistrement des modifications.\n");
-            }
+                    /* Sauvegarde en place: ouvrir en r+b, chercher l'enregistrement par ID
+                       et écraser avec la structure modifiée. Ne pas utiliser ecrire_commune
+                       (qui ferait un append et dupliquerait l'enregistrement). */
+                    {
+                        FILE *fc = fopen(FICHIER_COMMUNE, "r+b");
+                        if (fc == NULL) {
+                            printf("Erreur: impossible d'ouvrir %s pour mise à jour.\n", FICHIER_COMMUNE);
+                        } else {
+                            Commune tmp;
+                            int updated = 0;
+                            while (fread(&tmp, sizeof(Commune), 1, fc) == 1) {
+                                if (tmp.id_commune == nouvellecommune.id_commune) {
+                                    /* Reculer d'un enregistrement et écraser */
+                                    fseek(fc, -((long)sizeof(Commune)), SEEK_CUR);
+                                    if (fwrite(&nouvellecommune, sizeof(Commune), 1, fc) == 1) {
+                                        fflush(fc);
+                                        updated = 1;
+                                    }
+                                    break;
+                                }
+                            }
+                            fclose(fc);
+                            if (updated) {
+                                printf("Modifications enregistrées avec succès.\n");
+                            } else {
+                                printf("Aucune commune modifiée (ID introuvable).\n");
+                            }
+                        }
+                    }
         } else {
             printf("Commune non trouvée.\n");
         }
@@ -766,11 +561,11 @@ void lister_communes() {
     printf("-----------------------\n");
     while (fread(&com, sizeof(Commune), 1, fc) == 1)
     {
-        printf("ID Commune: %d\n", com.id_commune);
-        printf("ID Département: %d\n", com.id_departement);
-        printf("Nom: %s\n", com.nom_com);
-        printf("Description: %s\n", com.desc_com);
-        printf("-----------------------\n");
+        //afficher sur forme de tableau (lignes et colonnes) les infos de la commune avec son id , le nom et la description
+        printf("| ID Departement | ID Commune | Nom Commune       | Description Commune  |\n");
+        printf("--------------------------------------------------\n");
+        printf("| %d         | %d             | %s                | %s                   |\n", com.id_departement,com.id_commune, com.nom_com, com.desc_com);
+        printf("--------------------------------------------------\n");
     }
 
     fclose(fc);
@@ -811,106 +606,3 @@ int verifier_nom_commune_existe(const char *nom_fichier, const char *nom_com)
     return found;
 }
 
-/*-----------------------------------------------------------------*/   
-/* FONCTION:              menu ventes                              */
-/* DESCRIPTION:            Affiche le menu des ventes              */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                  */
-/*AUTEUR:                David Kehl                                */
-/*DATE DE CREATION:      22/10/2025                                */
-/*DATE DE MODIFICATION:   30/10/2025                               */
-
-void menu_ventes(void)
-{ int sous_choix =-1;    
-    while (sous_choix != 0) {
-        printf("\n");
-        printf("┌────────────────────────────────────────────────┐\n");
-        printf("│             ★ GESTION DES VENTES ★            │\n");
-        printf("└────────────────────────────────────────────────┘\n");
-        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ► Ajouter une nouvelle vente        ┃   \n");
-        printf("   ┃  [2] ► Modifier une vente                ┃   \n");       
-        printf("   ┃  [3] ► Lister toutes les ventes          ┃   \n");
-        printf("   ┃  [0] ► Retour au menu principal          ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-
-        
-        scanf("%d", &sous_choix);
-  
-        switch (sous_choix) {
-            case 1:
-                lister_produits();
-                ins_vente();
-                break;
-            case 2:
-               // mod_vente();
-                break;
-            case 3:
-                //lister_ventes();
-                break;
-            case 0:
-                printf("Retour au menu principal...\n");
-                afficher_menu_principal();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-}
-
-
-//corps de la focntion vider buffer
-/*------------------------------------------------------------------------*/
-/* FONCTION:              vider_buffer                                    */
-/*DESCRIPTION:           Cette fonction permet de vider le buffer stdin   */
-/*VALEUR DE RETOUR:       Pas de valeur de retour                         */
-/*AUTEUR:                David Kehl                                       */
-
-void vider_buffer(void)
-{
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-
-/*-----------------------------------------------------------------*/   
-/* FONCTION:              menu_rapports                             */  
-/* DESCRIPTION:            Affiche le menu des rapports             */  
-/*VALEUR DE RETOUR:       Pas de valeur de retour                  */   
-/*AUTEUR:                David Kehl                                */
-/*DATE DE CREATION:      22/10/2025                                */
-/*DATE DE MODIFICATION:   30/10/2025                               */
-
-void menu_rapports(void)
-{ int sous_choix =-1;    
-    while (sous_choix != 0) {
-        printf("\n");
-        printf("┌────────────────────────────────────────────────┐\n");
-        printf("│             ★ GESTION DES RAPPORTS ★           │\n");
-        printf("└────────────────────────────────────────────────┘\n");
-        printf("   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓   \n");
-        printf("   ┃  [1] ►  Liste des produits fabriqués     ┃   \n");
-        printf("   ┃  [2] ►  liste des produits disponible    ┃   \n");       
-        printf("   ┃  [3] ► Chiffre d'affaire par periode     ┃   \n");
-        printf("   ┃  [0] ► Retour au menu principal          ┃   \n");
-        printf("   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛   \n");
-        printf(" ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ \n");
-        printf(" ┃  Veuillez faire Votre choix ►► ");
-        scanf("%d", &sous_choix);
-        switch (sous_choix) {
-            case 1:
-                list_prod_fab();
-                break;
-            case 2:
-                list_prod_dispo();
-                break;
-            case 3:
-               // chiffre_affaire();
-                break;
-            case 0:
-                printf("Retour au menu principal...\n");
-                afficher_menu_principal();
-            default:
-                printf("Choix invalide, veuillez réessayer.\n");
-        }
-    }
-}
