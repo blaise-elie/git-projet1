@@ -135,7 +135,7 @@ int ins_vente() {
 //         printf("Erreur : Stock insuffisant pour le produit %d (Stock: %d, Demandé: %d).\n", 
 //                p.Id_prod, p.pro_qte, v.qte_vendue);
 //         fclose(fp_prod);
-//         return 0;
+//         return 0;0
 //     }
 
 //     // 4. Mettre à jour la quantité et l'enregistrer dans le fichier produit.dat
