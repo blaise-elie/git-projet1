@@ -158,7 +158,7 @@ void mod_usine()
                     break;
                     
                 case 3:
-                    printf("Modification annulée\n");
+                    printf("Modification terminée.\n");
                     break;
                     
                 default: 
@@ -166,6 +166,31 @@ void mod_usine()
                     break;
             }
         } while (choix != 3);
+        /* Après modifications en mémoire, sauvegarder dans le fichier en place */
+        FILE *f = fopen("usine.dat", "r+b");
+        if (f == NULL) {
+            printf("Impossible d'ouvrir le fichier usine.dat pour mise à jour.\n");
+            return;
+        }
+        Usine tmp;
+        int updated = 0;
+        while (fread(&tmp, sizeof(Usine), 1, f) == 1) {
+            if (tmp.id_usine == usine_a_modifier.id_usine) {
+                /* Reculer d'un enregistrement et écraser */
+                fseek(f, -((long)sizeof(Usine)), SEEK_CUR);
+                if (fwrite(&usine_a_modifier, sizeof(Usine), 1, f) == 1) {
+                    fflush(f);
+                    updated = 1;
+                }
+                break;
+            }
+        }
+        fclose(f);
+        if (updated) {
+            printf("Usine mise à jour avec succès.\n");
+        } else {
+            printf("Aucune usine modifiée (ID introuvable).\n");
+        }
     } else {
         printf("Aucune usine trouvée avec l'ID %d\n", ID);
     }
@@ -214,7 +239,7 @@ int obtenir_dernier_id_usine(const char *nom_fichier)
 
 /*------------------------------------------------------------------------*/
 void ins_Prod()
-{
+{   
     Produit nouveauProduit;
     char texte[50]; // pour recevoir le texte à saisir
 
@@ -232,7 +257,7 @@ void ins_Prod()
         return;
     }
     // vider le reste du buffer
-    while ((c = getchar()) != '\n' && c != EOF) {}
+    vider_buffer();
 
     Usine usine_tmp;
     if (!lire_usine("usine.dat", id_usine_input, &usine_tmp)) {
@@ -254,12 +279,12 @@ void ins_Prod()
     strcpy(nouveauProduit.pro_desc, texte); //Pour copier le nom dans le champ nom de l'usine
 
     //prix du produit
-    printf("Entrez le prix du produit en Gourdes: ");
+    printf("Entrez le prix du produit en Gourdes  ► ");
     scanf("%f", &nouveauProduit.pro_prix);
     getchar(); // absorber le \n restant
 
     // Quantité du produit
-    printf("Entrez la quantité dont vous voulez ajouter: ");
+    printf("Entrez la quantité du produit fabrique ► ");
     scanf("%d", &nouveauProduit.pro_qte);
     getchar(); // absorber le \n restant
 
@@ -290,9 +315,9 @@ void ins_Prod()
        On demande uniquement les dates (production et expiration).
        La quantité du lot sera la quantité initiale saisie pour le produit.
     */
-    if (retour == 1) {
-        enregistrer_production_after_insert(&nouveauProduit);
-    }
+     if (retour == 1) {
+         enregistrer_production_after_insert(&nouveauProduit);
+     }
 
     
 }
@@ -470,55 +495,55 @@ void generer_date_courante(char* date_str) {
 }
 
 /*------------------------------------------------------------------------*/
-static void enregistrer_production_after_insert(Produit *produit) {
-    if (produit == NULL) return;
-    Hist_production nouveau_lot;
-    char buffer[32];
+  static void enregistrer_production_after_insert(Produit *produit) {
+      if (produit == NULL) return;
+     Hist_production nouveau_lot;
+     char buffer[32];
 
-    nouveau_lot.Id_lot = obtenir_dernier_id_lot(HIST_PROD_FILE) + 1;
-    nouveau_lot.id_prod = produit->Id_prod;
+      nouveau_lot.Id_lot = obtenir_dernier_id_lot(HIST_PROD_FILE) + 1;
+      nouveau_lot.id_prod = produit->Id_prod;
 
-    // Demander la date de production
-    printf("Entrez la date de production pour '%s' (JJ/MM/AAAA) : ", produit->Pro_nom);
-    // vider le buffer éventuel puis lire
-    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-        // si EOF ou erreur, on génère la date courante
-        generer_date_courante(nouveau_lot.Dat_prod);
-    } else {
-        buffer[strcspn(buffer, "\n")] = '\0';
-        if (strlen(buffer) == 0) {
-            generer_date_courante(nouveau_lot.Dat_prod);
-        } else {
-            strncpy(nouveau_lot.Dat_prod, buffer, sizeof(nouveau_lot.Dat_prod)-1);
-            nouveau_lot.Dat_prod[sizeof(nouveau_lot.Dat_prod)-1] = '\0';
-        }
-    }
+//     // Demander la date de production
+     printf("Entrez la date de production pour '%s' (JJ/MM/AAAA) : ", produit->Pro_nom);
+      // vider le buffer éventuel puis lire
+     if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+//         // si EOF ou erreur, on génère la date courante
+          generer_date_courante(nouveau_lot.Dat_prod);
+      } else {
+         buffer[strcspn(buffer, "\n")] = '\0';
+         if (strlen(buffer) == 0) {
+              generer_date_courante(nouveau_lot.Dat_prod);
+          } else {
+             strncpy(nouveau_lot.Dat_prod, buffer, sizeof(nouveau_lot.Dat_prod)-1);
+             nouveau_lot.Dat_prod[sizeof(nouveau_lot.Dat_prod)-1] = '\0';
+          }
+     }
 
-    // Demander la date d'expiration
-    printf("Entrez la date d'expiration pour '%s' (JJ/MM/AAAA) : ", produit->Pro_nom);
-    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
-        nouveau_lot.Dat_exp[0] = '\0';
-    } else {
-        buffer[strcspn(buffer, "\n")] = '\0';
-        strncpy(nouveau_lot.Dat_exp, buffer, sizeof(nouveau_lot.Dat_exp)-1);
-        nouveau_lot.Dat_exp[sizeof(nouveau_lot.Dat_exp)-1] = '\0';
-    }
+//     // Demander la date d'expiration
+      printf("Entrez la date d'expiration pour '%s' (JJ/MM/AAAA) : ", produit->Pro_nom);
+      if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+         nouveau_lot.Dat_exp[0] = '\0';
+       } else {
+           buffer[strcspn(buffer, "\n")] = '\0';
+          strncpy(nouveau_lot.Dat_exp, buffer, sizeof(nouveau_lot.Dat_exp)-1);
+         nouveau_lot.Dat_exp[sizeof(nouveau_lot.Dat_exp)-1] = '\0';
+       }
 
-    // Quantité = quantité initiale saisie pour le produit
-    nouveau_lot.Lot_qte = produit->pro_qte;
+      //Quantité = quantité initiale saisie pour le produit
+      nouveau_lot.Lot_qte = produit->pro_qte;
 
-    FILE *f = fopen(HIST_PROD_FILE, "ab");
-    if (f == NULL) {
-        printf("Erreur: impossible d'ouvrir %s pour écrire l'historique de production.\n", HIST_PROD_FILE);
-        return;
-    }
-    fwrite(&nouveau_lot, sizeof(Hist_production), 1, f);
-    fclose(f);
+     FILE *f = fopen(HIST_PROD_FILE, "ab");
+       if (f == NULL) {
+           printf("Erreur: impossible d'ouvrir %s pour écrire l'historique de production.\n", HIST_PROD_FILE);
+          return;
+       }
+       fwrite(&nouveau_lot, sizeof(Hist_production), 1, f);
+     fclose(f);
 
-    printf("Production initiale enregistrée (lot ID %d) : %d unités pour '%s'.\n", nouveau_lot.Id_lot, nouveau_lot.Lot_qte, produit->Pro_nom);
-}
+      printf("Production initiale enregistrée (lot ID %d) : %d unités pour '%s'.\n", nouveau_lot.Id_lot, nouveau_lot.Lot_qte, produit->Pro_nom);
+  }
 
-/*------------------------------------------------------------------------*/
+
 void enregistrer_production() {
     Hist_production nouveau_lot;
     Produit produit;
@@ -603,4 +628,104 @@ int obtenir_dernier_id_lot(const char *nom_fichier)
 
     fclose(f);
     return dernier_id;
+}
+
+
+
+
+
+
+/* FONCTION:              mise_a_jour_produit                             */
+/* DESCRIPTION:           Met à jour un enregistrement Produit dans le    */
+/* fichier produit.dat                             */
+/* VALEUR DE RETOUR:      Un entier (1 succès, 0 erreur)                  */
+
+int mise_a_jour_produit(const char *nom_fichier, Produit produit_maj) 
+{
+    FILE *orig = fopen(nom_fichier, "rb");
+    if (orig == NULL) return 0; // Fichier original non trouvé
+
+    FILE *temp = fopen("temp_prod.dat", "wb");
+    if (temp == NULL) {
+        fclose(orig);
+        return 0; // Erreur création fichier temporaire
+    }
+    
+    Produit p;
+    int trouve = 0;
+    
+    // Parcourir le fichier original
+    while (fread(&p, sizeof(Produit), 1, orig) == 1) {
+        if (p.Id_prod == produit_maj.Id_prod) {
+            // Écrire le produit MODIFIÉ dans le fichier temporaire
+            fwrite(&produit_maj, sizeof(Produit), 1, temp);
+            trouve = 1;
+        } else {
+            // Écrire les autres produits inchangés
+            fwrite(&p, sizeof(Produit), 1, temp);
+        }
+    }
+    
+    fclose(orig);
+    fclose(temp);
+
+    if (trouve) {
+        // Remplacer l'original par le temporaire
+        remove(nom_fichier);
+        rename("temp_prod.dat", nom_fichier);
+        return 1;
+    } else {
+        // Nettoyer si le produit n'a pas été trouvé (ne devrait pas arriver ici)
+        remove("temp_prod.dat");
+        return 0;
+    }
+}
+
+
+
+/* FONCTION:                     ins_hist_prod                            */ 
+/* DESCRIPTION:          Ajoute un lot de production et met à jour le stock*/
+/* PARAMETRE:            Structure Hist_production (le lot à insérer)     */
+/* VALEUR DE RETOUR:     Un entier (1 si succès, 0 si échec)              */
+/* AUTEUR:               Adapté de PIERRE-LOUIS Alven Bernadin            */
+/* DATE DE MODIFICATION: 05/11/2025                                       */
+
+
+int ins_hist_prod() {
+    Produit produit_associe;
+    Hist_production h;
+    
+    // --- ÉTAPE 1 : Vérifier l'existence du produit ---
+    if (!lire_produit(PRODUIT_FILE, h.id_prod, &produit_associe)) {
+        printf("ECHEC : Produit avec ID %d non trouve. Insertion du lot annulee.\n", h.id_prod);
+        return 0;
+    }
+    
+    // --- ÉTAPE 2 : Écrire le nouveau lot dans l'historique ---
+    FILE *f = fopen(HIST_PROD_FILE, "ab"); // J'utilise HIST_PRODUCTION_FILE
+    if (f == NULL) {
+        printf("ECHEC : Erreur d'ouverture du fichier historique (%s).\n", HIST_PROD_FILE);
+        return 0;
+    }
+    size_t written = fwrite(&h, sizeof(Hist_production), 1, f);
+    fclose(f);
+
+    if (written != 1) {
+        printf("ECHEC : Erreur lors de l'ecriture du lot dans l'historique.\n");
+        return 0;
+    }
+    
+    // --- ÉTAPE 3 : Mettre à jour la quantité du produit ---
+    
+    // Ajouter la quantité du lot au stock existant
+    produit_associe.pro_qte += h.Lot_qte;
+    
+    // Réécrire le produit dans le fichier produit.dat
+    if (mise_a_jour_produit(PRODUIT_FILE, produit_associe) == 0) {
+        printf("ATTENTION : Lot insere, mais ECHEC de la mise a jour du stock du produit.\n");
+        return 0;
+    }
+    
+    printf("SUCCES : Lot %d pour produit %d enregistre. Nouveau stock: %d.\n", h.Id_lot, h.id_prod, produit_associe.pro_qte);
+    return 1;
 }
