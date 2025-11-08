@@ -26,6 +26,7 @@ typedef struct {
 #define HIST_PROD_FILE "Hist_Prod.dat"
 #define FICHIER_DEPARTEMENT "departement.dat"
 #define FICHIER_COMMUNE "commune.dat"
+#define MAX_AGGREGATES 100
 
 //structure usine
 typedef struct{
@@ -103,6 +104,9 @@ int mettre_a_jour_stock(int id_prod, int qte_vendue);
 int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
 void generer_date_courante(char* date_str);
 int obtenir_dernier_id_lot(const char *nom_fichier);
+
+// Prototype pour insertion historique production
+int ins_hist_prod(void);
 
 /*===========
 =============================================================*/
@@ -193,13 +197,15 @@ typedef struct
 
 
 
+//prototype de la fonction pour ajouter un lot de production
+void enregistrer_production();
 
 // proyotype de la Fonction pour lister les produits disponibles en stock repartis par usine et par produit
 void list_prod_dispo();
 // prototype de la Fonction pour lister les produits fabriqués dans une période donnée
 void list_prod_fab();
 // prototype de la Fonction pour calculer et afficher le chiffre d'affaire par période
-void chiffre_affaire();
+void chiffre_affaire(void);
 
 //creatio d'une tableau de structure pour stocker les produits en stock par usine
 typedef struct {
@@ -213,9 +219,15 @@ typedef struct {
 }ProduitEnStock;
 
 
+// Définir la structure pour stocker les totaux par ID (pour l'agrégation)
+typedef struct {
+    int id;
+    double total_ca;
+    char nom[50];
+} CaisseAggregat;
 
-
-
+//Fonction utilitaire pour convertir "JJ/MM/AAAA" en entier pour comparaison (AAAAMMJJ)
+int date_to_int(const char *date_str);
 
 
 
