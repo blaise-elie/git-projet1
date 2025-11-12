@@ -183,7 +183,8 @@ void menu_departements() {
         scanf("%d", &sous_choix);
         switch (sous_choix) {
             case 1:
-                 ins_dept();
+                lister_departements();
+                ins_dept();
                 break;
             case 2:
                 lister_departements();
@@ -240,9 +241,6 @@ void menu_communes(void) {
                 break;
             case 3:
                 lister_communes();
-                break;
-            case 4:
-                menu_usines();
                 break;
             case 0:
                 printf("Retour au menu principal...\n");
