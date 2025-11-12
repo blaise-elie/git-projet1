@@ -368,6 +368,7 @@ void ins_com()
     }
     nouvelleCommune.id_departement = dept_test.id_departement;
     //Saisir le nom de la commune
+    lister_communes();
     printf("Entrez le nom de la commune: ");
     fgets(texte, sizeof(texte), stdin);
     //Supprime le retour à la ligne (\n) si présent
