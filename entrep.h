@@ -104,9 +104,11 @@ int mettre_a_jour_stock(int id_prod, int qte_vendue);
 int ajouter_vente(int id_prod, int qte_vendue, float prix_unit);
 void generer_date_courante(char* date_str);
 int obtenir_dernier_id_lot(const char *nom_fichier);
-
 // Prototype pour insertion historique production
 int ins_hist_prod(void);
+
+// Trouver un produit par nom dans une usine (retourne 1 si trouvé et copie dans result si non NULL)
+int trouver_produit_par_nom_et_usine(const char *nom_fichier, const char *nom_produit, int id_usine, Produit *result);
 
 /*===========
 =============================================================*/
@@ -206,7 +208,7 @@ void list_prod_dispo();
 void list_prod_fab();
 // prototype de la Fonction pour calculer et afficher le chiffre d'affaire par période
 void chiffre_affaire(void);
-
+// (ancien prototype verifier_nom_produit_existe supprimé — utilisation de trouver_produit_par_nom_et_usine)
 //creatio d'une tableau de structure pour stocker les produits en stock par usine
 typedef struct {
     int id_usine;
@@ -228,6 +230,10 @@ typedef struct {
 
 //Fonction utilitaire pour convertir "JJ/MM/AAAA" en entier pour comparaison (AAAAMMJJ)
 int date_to_int(const char *date_str);
+
+//
+int mise_a_jour_produit(const char *nom_fichier, Produit p);
+
 
 
 
